@@ -108,25 +108,14 @@
                                         <td></td>
                                     }
 
-
-
                                     @if (session.GroupID == "ADMIN")
                                     {
-                                        <td>
+                                <td>
 
-                                            <a href="#" class="btn btn-info btn-xs" onclick="Sua(this)" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i> Sửa </a>
-                                            <button href="#" class="btn btn-danger btn-xs" style="color:white;">
-                                                <i class="fa fa-trash-o"></i>
-                                                @Ajax.ActionLink("Xoá", "Delete", new { @id = item.ID },
-                                            new AjaxOptions
-                                            {
-                                                Confirm = "Bạn có muốn xoá bản ghi này?",
-                                                OnComplete = "$('row_" + @item.ID + "').remove()",
-                                                HttpMethod = "Delete"
-                                            }, new { @class = "button-delete" })
-                                            </button>
+                                    <a href="#" class="btn btn-info btn-xs" onclick="Sua(this)" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i> Sửa </a>
+                                    <a userId="@item.ID" data-name="@item.Name_Student" title="Delete" class="link-delete btn btn-danger btn-xs" onclick="return confirmation(this)"><i class="fa fa-trash"></i> Xoa</a>
 
-                                        </td>
+                                </td>
                                     }
 
 
@@ -142,7 +131,9 @@
 </div>
 
 @Html.Partial("_StudentModal")
-<script>
+@Html.Partial("_ModalDelete")
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
     function Them() {
         SetNull();
         $("#bt_sua").hide();
@@ -194,6 +185,37 @@
                 alert("Error: " + err.responseText);
             }
         });
+    }
+
+    function confirmation(el) {
+        event.preventDefault();
+        var id = el.parentNode.parentNode.cells[0].textContent;
+        debugger;
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '/student/delete/' + id,
+                        type : 'POST'
+                    }),
+                        swal({
+                            title: "Good job", text: "You clicked the button!", type:
+                                "success"
+                        }).then(function () {
+                            window.location.reload();
+
+                        }
+                        );
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
     }
 </script>
 

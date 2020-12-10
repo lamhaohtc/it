@@ -129,6 +129,8 @@ namespace Managing_Teacher_Work.Controllers
 
 
         }
+
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             new StudentDao().Delete(id);

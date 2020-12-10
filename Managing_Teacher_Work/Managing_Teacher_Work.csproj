@@ -6192,6 +6192,8 @@
     <Content Include="Scripts\src\utils\setAttributes.js" />
     <Content Include="Scripts\src\utils\setStyles.js" />
     <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\sweetalert-dev.js" />
+    <Content Include="Scripts\sweetalert.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -6206,6 +6208,7 @@
       <DependentUpon>MyDatabaseEntities.edmx</DependentUpon>
       <LastGenOutput>MyDatabaseEntities.cs</LastGenOutput>
     </Content>
+    <Content Include="Styles\sweetalert.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -6436,6 +6439,8 @@
     <Content Include="Views\Transaction\Index.cshtml" />
     <Content Include="Views\Activity\Index.cshtml" />
     <Content Include="Views\Activity\_activityModal.cshtml" />
+    <Content Include="Views\Shared\_ModalDelete.cshtml" />
+    <Content Include="Views\Student\_ModalDelete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
