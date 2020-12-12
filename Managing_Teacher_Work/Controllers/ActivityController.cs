@@ -2,6 +2,7 @@
 using Managing_Teacher_Work.Helpers;
 using Managing_Teacher_Work.Models;
 using Managing_Teacher_Work.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace Managing_Teacher_Work.Controllers
 {
+    [ValidateInput(false)]
     public class ActivityController : BaseController
     {
         private bool isAddNew;
@@ -24,6 +26,7 @@ namespace Managing_Teacher_Work.Controllers
         {
             var activities = await _activityService.GetActivityListAsync();
             ViewBag.Activity = activities;
+            ViewBag.ActivityTypeList = EnumHelper.GetEnumList<ActivityTypeEnum>();
 
             return View();
         }
@@ -43,11 +46,11 @@ namespace Managing_Teacher_Work.Controllers
                         Address = model.Address,
                         ActivityType = model.ActivityType,
                         Description = model.Description,
+                        ActivityStatus = (int)ActivityStatus.Ready
                     };
-
-                    activity.ActivityStatus = DateTimeHelper.SetActivityStatus(activity.StartDate, activity.EndDate);
                     await _activityService.AddActivityAsync(activity);
                     SetAlert("Thêm thông tin thành công!", "success");
+
                     return RedirectToAction("Index");
                 }
                 else if(submit == "Cập Nhật")
@@ -73,10 +76,20 @@ namespace Managing_Teacher_Work.Controllers
 
         }
 
+        public async Task<ActionResult> getList(int id)
+        {
+            JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+            var hs = await _activityService.GetActivityByIdAsync(id);
+            var result = JsonConvert.SerializeObject(hs, Formatting.Indented, jss);
+
+            return this.Json(result, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
         public async Task<ActionResult> Delete(int id)
         {
             await _activityService.DeleteActivityByIdAsync(id);
-            SetAlert("Xoá thành công!", "success");
 
             return RedirectToAction("Index");
         }

@@ -16,6 +16,8 @@ namespace Managing_Teacher_Work.Services
         Task<List<Teacher>> GetTeacherByScienseIdAsync(int scienseId);
         Task<bool> DeteleTeacherByIdAsync(int id);
         Task<List<Teacher>> GetTeacherRoleAsync();
+        Task<Teacher> AddTacherAsync(Teacher teacher);
+        Task UpdateTeacherAsync(Teacher teacher);
 
     }
     public class TeacherService : ITeacherService
@@ -24,6 +26,14 @@ namespace Managing_Teacher_Work.Services
         public TeacherService(AppDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<Teacher> AddTacherAsync(Teacher teacher)
+        {
+            _dbContext.Teacher.Add(teacher);
+            await _dbContext.SaveChangesAsync();
+
+            return teacher;
         }
 
         public async Task<bool> DeteleTeacherByIdAsync(int id)
@@ -58,6 +68,12 @@ namespace Managing_Teacher_Work.Services
         public async Task<List<Teacher>> GetTeacherRoleAsync()
         {
             return await _dbContext.Teacher.Where(t => t.RoleId != RoleEnum.DV.ToString() && t.RoleId != RoleEnum.TT.ToString() && t.RoleId != RoleEnum.TP.ToString()).ToListAsync();
+        }
+
+        public async Task UpdateTeacherAsync(Teacher teacher)
+        {
+            _dbContext.Entry(teacher).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

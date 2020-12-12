@@ -1,7 +1,7 @@
 ﻿@{
 
     Layout = "~/Views/Shared/_LayoutIndex.cshtml";
-    var transactionList = ViewBag.Transactions;
+    var teacherList = ViewBag.teacherRoleList;
 
 }
 <style>
@@ -56,9 +56,9 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div style="text-align:right">
+                @*<div style="text-align:right">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" onclick="Them()"><i class="fa fa-plus-square"></i>&nbsp;Thêm mới</button>
-                </div>
+                </div>*@
                 <div>
                     @if (TempData["AlertMessage"] != null)
                     {
@@ -70,52 +70,32 @@
                 <table id="datatable" class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>STT</th>
-                            <th style="display:none;">Mã</th>
+                            <th style="display: none">Ma</th>
                             <th>Tên Cán Bộ</th>
-                            <th>Loại Chi Phí</th>
-                            <th>Số Tiền (VND)</th>
-                            <th>Ngày Đóng</th>
-                            <th>Đã Đóng</th>
+                            <th>Chức Vụ</th>
+                            <th>Gmail</th>
+                            <th>Ngày Bắt Đầu</th>
+                            <th>Ngày Kết Thúc</th>
                             <th>Thao Tác</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if (transactionList != null)
+                        @if (teacherList != null)
                         {
-                            var count = 0;
-
-                            foreach (var item in transactionList)
+                            foreach (var item in teacherList)
                             {
-                                count++;
                                 <tr id="row_@item.ID">
-                                    <td>@count</td>
-                                    <td><a href="#!" onclick="Sua(this)" data-toggle="modal" data-target="#myModal">@(item.Teacher.Name_Teacher ?? "")</a></td>
-                                    <td>@Managing_Teacher_Work.Helpers.EnumHelper.GetEnumDescription((Managing_Teacher_Work.Enums.TransactionType)item.TransactionType)</td>
-                                    <td>@item.Amout</td>
+                                    <td style="display: none">@item.ID</td>
+                                    <td><a href="#!" onclick="Sua(this)" data-toggle="modal" data-target="#myModal">@(item.Name_Teacher ?? "")</a></td>
+                                    <td>@item.Role.Name</td>
+                                    <td>@item.Email</td>
                                     <td>@item.CreatedDate</td>
-                                    @if (item.IsPaid == true)
-                                    {
-                                        <td class="text-center green"><i class="fa fa-check" aria-hidden="true"></i></td>
-                                    }
-                                    else
-                                    {
-                                        <td class="text-center red"><i class="fa fa-window-close" aria-hidden="true"></i></td>
-                                    }
+                                    <td>@item.ModifiedDate</td>
                                     @if (session.GroupID == "ADMIN")
                                     {
                                         <td>
                                             <a href="#" class="btn btn-info btn-xs" onclick="Sua(this)" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit" aria-hidden="true"></i> Sửa </a>
-                                            <button href="#" class="btn btn-danger btn-xs" style="color:white;">
-                                                <i class="fa fa-trash"></i>
-                                                @Ajax.ActionLink("Xoá", "Delete", new { @id = item.ID },
-                                            new AjaxOptions
-                                            {
-                                                Confirm = "Bạn có muốn xoá bản ghi này?",
-                                                OnComplete = "$('row_" + @item.ID + "').remove()",
-                                                HttpMethod = "Delete"
-                                            }, new { @class = "button-delete" })
-                                            </button>
+                                            <a userId="@item.ID" title="Delete" class="link-delete btn btn-danger btn-xs" onclick="return confirmation(this)"><i class="fa fa-trash"></i> Xóa</a>
 
                                         </td>
                                     }
@@ -131,4 +111,81 @@
     </div>
 </div>
 
+@Html.Partial("_teacherRoleModel")
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+    function Them() {
+        SetNull();
+        $("#bt_sua").hide();
+        $("#bt_them").show();
+    };
+
+    function SetNull() {
+        $("#Name").val('');
+    };
+
+    function Sua(el) {
+        event.preventDefault();
+        $("#bt_sua").show();
+        $("#bt_them").hide();
+        var id = el.parentNode.parentNode.cells[0].textContent;
+        $.ajax({
+            url: '/TeacherRole/getList/?id=' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var json = JSON.parse(data);
+                $("#ID").val(json.ID);
+                $("#Name_Teacher").val(json.Name_Teacher);
+                $("#Phone").val(json.Phone);
+                $("#DateOfBirth").val(json.DateOfBirth);
+                $("#Avatar").val(json.Avatar);
+                $("#Address").val(json.Address);
+                $("#Status").val(json.Status);
+                $("#RoleId").val(json.RoleId);
+                debugger;
+            },
+            error: function (err) {
+                alert("Error: " + err.responseText);
+            }
+        });
+    }
+
+    function confirmation(el) {
+        event.preventDefault();
+        var id = el.parentNode.parentNode.cells[0].textContent;
+        debugger;
+        swal({
+            title: "Bạn Có Chắc Chắn Muốn Xóa?",
+            text: "Sau Khi Xóa, Bạn Sẽ Không Thể Khôi Phục Dữ Liệu Này",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '/teacherRole/delete/' + id,
+                        type: 'POST'
+                    }),
+                        swal({
+                            title: "Thông Báo", text: "Xóa Thành Công !", type:
+                                "success"
+                        }).then(function () {
+                            window.location.reload();
+
+                        }
+                        );
+                } else {
+                    swal("Bạn Vừa Hủy Thao Tác !");
+                }
+            });
+    }
+
+    function formatJSONDate(jsonDate) {
+        var date = new Date(parseInt(jsonDate.substr(6)));
+        return date;
+    }
+</script>
 

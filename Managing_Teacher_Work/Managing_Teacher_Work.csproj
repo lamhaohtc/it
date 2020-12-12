@@ -6264,6 +6264,7 @@
     </Compile>
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\ValueName.cs" />
     <Compile Include="Migrations\202011171539175_InitialCreate.cs" />
     <Compile Include="Migrations\202011171539175_InitialCreate.designer.cs">
       <DependentUpon>202011171539175_InitialCreate.cs</DependentUpon>

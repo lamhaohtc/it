@@ -13,6 +13,8 @@ namespace Managing_Teacher_Work.Enums
         [Description("Thể Dục - Thể Thao")]
         Sport,
         [Description("Từ Thiện")]
-        Charity
+        Charity,
+        [Description("Tình Nguyện")]
+        Volunteer
     }
 }

@@ -71,7 +71,6 @@
                     <thead>
                         <tr>
                             <th>STT</th>
-                            <th style="display:none;">Mã</th>
                             <th>Tên Cán Bộ</th>
                             <th>Loại Chi Phí</th>
                             <th>Số Tiền (VND)</th>
@@ -88,7 +87,7 @@
                             foreach (var item in transactionList)
                             {
                                 count++;
-                                <tr>
+                                <tr id="row_@item.ID">
                                     <td>@count</td>
                                     <td><a href="#!" onclick="Sua(this)" data-toggle="modal" data-target="#myModal">@item.Teacher.Name_Teacher</a></td>
                                     <td>@Managing_Teacher_Work.Helpers.EnumHelper.GetEnumDescription((Managing_Teacher_Work.Enums.TransactionType)item.TransactionType)</td>

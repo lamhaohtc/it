@@ -1,8 +1,7 @@
 ﻿
 @{
-    var listTeacher = (List<Managing_Teacher_Work.Models.Teacher>)ViewBag.listTeacher;
-    var listWork = (List<Managing_Teacher_Work.Models.Work>)ViewBag.listWork;
-    var listTypeCalendar = (List<Managing_Teacher_Work.Models.TypeCalendar>)ViewBag.listTypeCalendar;
+    var activityList = (List<Managing_Teacher_Work.Models.Activity>)ViewBag.Activity;
+    var activityTypeList = ViewBag.ActivityTypeList;
 }
 @section ScriptFooter{
     <script src="~/Scripts/jquery-3.0.0.min.js"></script>
@@ -21,45 +20,47 @@
     });
 
     function validate() {
-        if ($('#Name_CalendarWorking').val() == "")
-        {
-            alert('Tên lịch không được để trống ! Mời nhập bạn chọn!');
-            $('#Name_CalendarWorking').focus();
+        if ($('#title').val() == "") {
+            alert('Tên Hoạt Động Không Được Bỏ Trống');
+            $('#title').focus();
             return false;
         }
-        if ((CKEDITOR.instances["Description"].getData().length) == 0)
-        {
-            alert('Bạn chưa chọn nội dung lịch làm việc!Mời chọn');
+        if ((CKEDITOR.instances["Description"].getData().length) == 0) {
+            alert('Vui Lòng Nhập Mô Tả');
             return false;
         }
-        if ($('#DateStart').val() == "") {
+        if ($('#StartDate').val() == "") {
             alert("Bạn chưa chọn ngày bắt đầu!");
-            $('#DateStart').focus();
+            $('#StartDate').focus();
             return false;
         }
-        if ($('#DateEnd').val() == "") {
+        if ($('#EndDate').val() == "") {
             alert("Bạn chưa chọn ngày kết thúc!");
-            $('#DateEnd').focus();
+            $('#EndDate').focus();
             return false;
         }
-        var NgayBatDau = $('#DateStart').val();
-        var NgayKetThuc = $('#DateEnd').val();
-        if (NgayBatDau > NgayKetThuc)
-        {
+        var NgayBatDau = $('#StartDate').val();
+        var NgayKetThuc = $('#EndDate').val();
+
+        if (NgayBatDau <= Date.now()) {
+            alert('Ngày bắt đầu phải lớn hơn hiện tại');
+            $('#EndDate').focus();
+            return false;
+        }
+        if (NgayBatDau > NgayKetThuc) {
             alert('Ngày kết thúc phải lớn hơn ngày bắt đầu!Mời chọn lại!');
-            $('#DateEnd').focus();
+            $('#EndDate').focus();
             return false;
         }
-        if ($('#TeacherID').val() == "KhongChon") {
-            alert('Bạn chưa chọn giáo viên ! Mời chọn');
+
+        if ($('#Address').val() == "") {
+            alert('Vui lòng Nhập Địa Điểm');
+            $('#Address').focus();
             return false;
         }
-        if ($('#WorkID').val() == "KhongChon") {
-            alert('Bạn chưa chọn công việc ! Mời chọn');
-            return false;
-        }
-        if ($('#TypeCalendarID').val() == "KhongChon") {
-            alert('Bạn chưa chọn loại Tin Tức - Sự Kiện ! Mời chọn');
+
+        if ($('#ActivityType').val() == "KhongChon") {
+            alert('Vui lòng Chọn Loại Hoạt Động');
             return false;
         }
 
@@ -70,11 +71,11 @@
             window.location = "/Home/";
         }
     }
-    var date = new Date(parseInt('#DateEnd'.substring(10)));
+    var date = new Date(parseInt('#EndDate'.substring(10)));
 
 </script>
 
-<form action="/CalendarWorking/Add" method="post" class="needs-validation">
+<form action="/Activity/Add" method="post" class="needs-validation">
     <div class="modal" id="myModal">
         <div class="modal-dialog">
             <label id="lblresult"></label>
@@ -90,93 +91,46 @@
                 <div class="modal-body">
                     <input type="hidden" name="ID" id="ID" value="0">
                     <div class="form-group">
-                        <label>Tên Tin Tức - Sự Kiện<span style="color:red;">(*)</span></label>
-                        <input class="form-control" type="text" id="Name_CalendarWorking" name="Name_CalendarWorking" />
+                        <label>Tên Hoạt Động<span style="color:red;">(*)</span></label>
+                        <input class="form-control" type="text" id="title" name="title" />
                     </div>
                     <div class="form-group">
-                        <label>Mô tả Tin Tức - Sự Kiện<span style="color:red;">(*)</span></label>
+                        <label>Mô tả hoạt động<span style="color:red;">(*)</span></label>
                         <textarea name="Description" id="Description"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Ngày bắt đầu<span style="color:red;">(*)</span></label>
-                        <input class="form-control" type="date" id="DateStart" name="DateStart" />
+                        <input class="form-control" type="date" id="StartDate" name="StartDate" />
                         <input id="NBD" type="text" class="form-control" disabled />
                     </div>
                     <div class="form-group">
                         <label>Ngày kết thúc<span style="color:red;">(*)</span></label>
-                        <input class="form-control" type="date" id="DateEnd" name="DateEnd" data-date-format />
+                        <input class="form-control" type="date" id="EndDate" name="EndDate" data-date-format />
                         <input id="NKT" type="text" class="form-control" disabled />
                     </div>
                     <div class="form-group">
-                        <label>Địa điểm</label>
+                        <label>Địa điểm<span style="color:red;">(*)</span></label>
                         <input class="form-control" type="text" id="Address" name="Address" />
                     </div>
                     <div class="form-group">
-                        <label>Giáo viên<span style="color:red;">(*)</span> </label>
-                        <select name="TeacherID" id="TeacherID" class="form-control">
+                        <label>Loại Hoạt Động<span style="color:red;">(*)</span> </label>
+                        <select name="ActivityType" id="ActivityType" class="form-control">
                             <option value="KhongChon">Chọn...</option>
-                            @foreach (var item in listTeacher)
-                            {
-                                <option value="@item.ID">@item.Name_Teacher</option>
+                            @{ 
+                                foreach(var param in activityTypeList)
+                                {
+                                    <option value="@param.Value">@param.Name</option>
+                                }
                             }
-
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Công việc<span style="color:red;">(*)</span></label>
-                        <select name="WorkID" id="WorkID" class="form-control">
-                            <option value="KhongChon">Chọn...</option>
-                            @foreach (var item1 in listWork)
-                            {
-                                <option value="@item1.ID">@item1.Name_Work</option>
-                            }
-
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Loại Tin Tức - Sự Kiện<span style="color:red;">(*)</span></label>
-                        <select name="TypeCalendarID" id="TypeCalendarID" class="form-control">
-                            <option value="KhongChon">Chọn...</option>
-                            @foreach (var item2 in listTypeCalendar)
-                            {
-
-                                <option value="@item2.ID">@item2.TypeName</option>
-                            }
-
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Tình trạng công tác<span style="color:red;">(*)</span></label>
-
-                        <select class="form-control" name="WorkState" id="WorkState">
-                            <option value="DangThucHien">Đang thực hiện</option>
-                            <option value="DaHoanThanh">Đã hoàn thành</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Trạng thái</label>
-                        <select name="Status" class="form-control">
-                            <option value="HoatDong">Hoạt động</option>
-                            <option value="KhongHoatDong">Không hoạt động</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Văn bản đính kèm<span style="color:red">(*)</span></label>
-                        <input type="text" name="Files" id="Files" class="form-control" />
-                        <input type="button" value="Tải ảnh lên" onclick="BrowseServer();" class="controls" />
-                    </div>
-                    <div class="form-group" hidden>
-                        <label>CreatedDate</label>
-                        <input class="form-control" type="text" id="CreatedDate" name="CreatedDate" value="System.DateTime.Now" />
-                    </div>
-
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fa fa-lightbulb-o"></i>&nbsp; Đóng</button>
-                    <button type="reset" class="btn btn-warning btn-sm"><i class="fa fa-map-marker"></i>&nbsp; Làm mới</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">&nbsp; Đóng</button>
+                    <button type="reset" class="btn btn-warning btn-sm">&nbsp; Làm mới</button>
 
                     <input type="submit" name="submit" class="btn btn-success btn-sm" id="bt_sua" value="Cập Nhật" onclick="return validate()" />
                     <input type="submit" name="submit" class="btn btn-success btn-sm" id="bt_them" value="Thêm" onclick=" return validate()" />
