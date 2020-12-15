@@ -20,13 +20,15 @@ namespace Managing_Teacher_Work.Controllers
         private readonly ITypeCalendarService _typeCalendarService;
         private readonly IWorkService _workService;
         private readonly IMenuService _menuService;
+        private readonly IActivityService _activityService;
         public HomeController(AppDbContext dbContext, 
             IScienseService scienseService,
             ITeacherService teacherService,
             ICalendarWorkingService calendarWorkingService,
             ITypeCalendarService typeCalendarService,
             IWorkService workService,
-            IMenuService menuService)
+            IMenuService menuService,
+            IActivityService activityService)
         {
             _dbContext = dbContext;
             _scienseService = scienseService;
@@ -35,6 +37,7 @@ namespace Managing_Teacher_Work.Controllers
             _typeCalendarService = typeCalendarService;
             _workService = workService;
             _menuService = menuService;
+            _activityService = activityService;
         }
         public async Task<ActionResult> Index()
         {         
@@ -209,6 +212,21 @@ namespace Managing_Teacher_Work.Controllers
                 }
             }
             return new JsonResult { Data = new { status = status } };
+        }
+
+        public async Task<ActionResult> ActivityList()
+        {
+            ViewBag.ActivityList = await _activityService.GetActivityListAsync();
+
+            return View();
+        }
+
+        public async Task<ActionResult> ActivityDetail(int id)
+        {
+            var activity = await _activityService.GetActivityByIdAsync(id);
+            ViewBag.Activity = activity;
+
+            return View();
         }
 
     }

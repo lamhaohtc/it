@@ -64,7 +64,7 @@ namespaces: new[] { "Managing_Teacher_Work.Controllers" }
     namespaces: new[] { "Managing_Teacher_Work.Controllers" }
 );
             routes.MapRoute(
-    name: "Ghi chú công việc",
+    name: "Hoạt Động Công Đoàn",
     url: "Home-ManageNote",
     defaults: new { controller = "Home", action = "CalendarNote", id = UrlParameter.Optional },
     namespaces: new[] { "Managing_Teacher_Work.Controllers" }

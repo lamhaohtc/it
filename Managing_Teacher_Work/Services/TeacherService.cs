@@ -62,7 +62,7 @@ namespace Managing_Teacher_Work.Services
 
         public async Task<List<Teacher>> GetTeacherListAsync()
         {
-            return await _dbContext.Teacher.Where(t => t.RoleId != RoleEnum.CT.ToString() && t.RoleId != RoleEnum.PCT.ToString() && t.RoleId != RoleEnum.UV.ToString()).ToListAsync();
+            return await _dbContext.Teacher.Where(t => t.RoleId != RoleEnum.CT.ToString() && t.RoleId != RoleEnum.PCT.ToString() && t.RoleId != RoleEnum.UV.ToString() && t.RoleId != RoleEnum.UV_BTV.ToString()).ToListAsync();
         }
 
         public async Task<List<Teacher>> GetTeacherRoleAsync()

@@ -70,6 +70,7 @@
                 <table id="datatable" class="table table-striped table-bordered">
                     <thead>
                         <tr>
+                            <th style="display:none;">Mã</th>
                             <th>Tên Hoạt Động</th>
                             <th>Loại Hoạt Động</th>
                             <th>Ngày Bắt Đầu</th>
@@ -87,6 +88,7 @@
                             foreach (var item in activityList)
                             {
                                 <tr id="row_@item.ID">
+                                    <td style="display:none">@item.ID </td>
                                     <td>@item.Title</td>
                                     <td>@Managing_Teacher_Work.Helpers.EnumHelper.GetEnumDescription((Managing_Teacher_Work.Enums.ActivityTypeEnum)item.ActivityType)</td>
                                     <td>@item.StartDate</td>
@@ -101,8 +103,6 @@
 
                                         </td>
                                     }
-
-
                                 </tr>
                             }
                         }
@@ -164,6 +164,7 @@
                 $("#EndDate").val(json.EndDate);
                 $("#Address").val(json.Address);
                 $("#ActivityType").val(json.ActivityType);
+                $("#FilePath").val(json.FilePath);
                 debugger;
             },
             error: function (err) {

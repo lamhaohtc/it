@@ -13,15 +13,15 @@
 <div class="row">
     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
         <li role="presentation" class="active">
-            <a href="/Home/" id="home-tab" >Tin Tức - Sự Kiện</a>
+            <a href="/Home/" id="home-tab">Tin Tức - Sự Kiện</a>
         </li>
-      
+
         <li role="presentation" class="">
-            <a href="/Home-ManageTeacher/" >Danh Sách Công Đoàn Viên</a>
+            <a href="/Home-ManageTeacher/">Danh Sách Công Đoàn Viên</a>
         </li>
 
         <li role="presentation">
-            <a href="/Home-ManageNote/">Ghi chú công việc</a>
+            <a href="/Home/ActivityList">Hoạt Động Công Đoàn</a>
         </li>
         <li role="presentation">
             <a href="/Report/">Tạo Báo cáo tháng</a>
@@ -32,8 +32,6 @@
                 <a href="/Statistics-Report/">Thống kê báo cáo tháng</a>
             </li>
         }
-       
-        
         <li role="presentation">
             <a href="/Extention/">Tiện ích</a>
         </li>
@@ -46,7 +44,7 @@
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>Tin Tức - Sự Kiện</h2>
-                        
+
                         <ul class="nav navbar-right panel_toolbox">
                             <li>
                                 <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -86,12 +84,12 @@
                                     <tr>
 
                                         <td><a href="/Calendar-Working-Detail/@item.ID">@(item.Name_CalendarWorking ?? "")</a></td>
-                                     
+
                                         @if (item.DateStart != null)
                                         {
                                             <td>
                                                 @(item.DateStart.ToString("dd/MM/yyyy"))
-                                        </td>
+                                            </td>
                                         }
                                         else
                                         {

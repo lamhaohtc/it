@@ -19,6 +19,8 @@ namespace Managing_Teacher_Work.Enums
         [Description("Tổ Trưởng")]
         TT,
         [Description("Tổ Phó")]
-        TP
+        TP,
+        [Description("Ủy Viên Ban Thường Vụ")]
+        UV_BTV
     }
 }

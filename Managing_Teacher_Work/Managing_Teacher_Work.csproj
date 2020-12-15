@@ -6442,6 +6442,8 @@
     <Content Include="Views\Activity\_activityModal.cshtml" />
     <Content Include="Views\Shared\_ModalDelete.cshtml" />
     <Content Include="Views\Student\_ModalDelete.cshtml" />
+    <Content Include="Views\Home\ActivityList.cshtml" />
+    <Content Include="Views\Home\ActivityDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

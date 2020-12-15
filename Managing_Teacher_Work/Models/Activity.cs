@@ -14,6 +14,7 @@ namespace Managing_Teacher_Work.Models
         public int ActivityType { get; set; }
         public string Address { get; set; }
         public int ActivityStatus { get; set; }
+        public string FilePath { get; set; }
         public virtual ICollection<TeacherActivity> TeacherActivities { get; set; }
     }
 }

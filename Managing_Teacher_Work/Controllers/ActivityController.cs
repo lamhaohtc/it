@@ -46,7 +46,8 @@ namespace Managing_Teacher_Work.Controllers
                         Address = model.Address,
                         ActivityType = model.ActivityType,
                         Description = model.Description,
-                        ActivityStatus = (int)ActivityStatus.Ready
+                        ActivityStatus = (int)ActivityStatus.Ready,
+                        FilePath = model.FilePath
                     };
                     await _activityService.AddActivityAsync(activity);
                     SetAlert("Thêm thông tin thành công!", "success");
@@ -64,6 +65,7 @@ namespace Managing_Teacher_Work.Controllers
                     activityById.Description = model.Description;
                     activityById.EndDate = model.EndDate;
                     activityById.Address = model.Address;
+                    activityById.FilePath = model.FilePath;
 
                     await _activityService.UpdateActivityAsync(activityById);
 
