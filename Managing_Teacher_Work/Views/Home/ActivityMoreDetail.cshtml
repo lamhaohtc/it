@@ -1,0 +1,51 @@
+﻿
+@using Managing_Teacher_Work.Models;
+@{
+    ViewBag.Title = "Activity More Detail";
+    Layout = "~/Views/Shared/_LayoutIndex.cshtml";
+    var list = ViewBag.Activity;
+}
+<script>
+    function cancel() {
+        if ((document.referrer.toString().indexOf("/Home/") != -1)) {
+            window.location = "/Home/ActivityDetail/@list.ID";
+        }
+    }
+</script>
+<div>
+    <div class="body">
+
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <h4><b>@(list.Title??"")</b></h4>
+                </div>
+            </div>
+        </div>
+        <div><span class="fa fa-list"></span>&nbsp;Tình trạng thực hiện:&nbsp;@Managing_Teacher_Work.Helpers.EnumHelper.GetEnumDescription((Managing_Teacher_Work.Enums.ActivityStatus)list.ActivityStatus) - &nbsp;<span class="fa fa-tasks"></span>&nbsp;Loại Hoạt Động:&nbsp;@Managing_Teacher_Work.Helpers.EnumHelper.GetEnumDescription((Managing_Teacher_Work.Enums.ActivityTypeEnum)list.ActivityType)</div>
+        <br />
+        <div class="row">
+            &nbsp;&nbsp;&nbsp;&nbsp;Thời gian thực hiện:&nbsp;<i>Từ ngày @(list.StartDate.ToString("dd/MM/yyyy")??"") đến ngày @(list.EndDate.ToString("dd/MM/yyyy")??"")</i> -&nbsp;Địa điểm triển khai:&nbsp;<i> @(list.Address??"")</i>
+        </div>
+        <br />
+        <p><i><b>Nội dung công việc:</b></i></p>
+        @if (list.Description != null)
+        {
+            <p>@Html.Raw(list.Description)</p>
+        }
+        else
+        {
+            <p>Không có dữ liệu</p>
+        }
+
+        <div class=row>
+            <h6><i><b>Văn bản đính kèm:</b></i><a href="@list.FilePath"><i class="fa fa-download"></i><i>&nbsp;Tải xuống</i></a></h6>
+        </div>
+        <div class="input" style="text-align: center;">
+
+            <button class="btn btn-search" style="background-color:orangered; color: white" onclick="cancel();">
+                <span></span><i class="fa fa-undo"></i>&nbsp;Quay lại
+            </button>
+        </div>
+    </div>
+</div>

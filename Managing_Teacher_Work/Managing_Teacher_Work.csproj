@@ -6231,7 +6231,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
-    <Compile Include="Controllers\ReportMonthController.cs" />
     <Compile Include="Controllers\ScienseController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentTestController.cs" />
@@ -6305,6 +6304,10 @@
     <Compile Include="Migrations\202012081606482_AddTeacherActivityTable.designer.cs">
       <DependentUpon>202012081606482_AddTeacherActivityTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012161635524_AddDocumentTable.cs" />
+    <Compile Include="Migrations\202012161635524_AddDocumentTable.designer.cs">
+      <DependentUpon>202012161635524_AddDocumentTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -6316,7 +6319,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\AppDbContext.cs" />
-    <Compile Include="Models\ReportMonth.cs" />
+    <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Science.cs" />
     <Compile Include="Models\Student.cs" />
@@ -6420,10 +6423,6 @@
     <Content Include="Views\Home\CalNote.cshtml" />
     <Content Include="Views\Shared\_Layout_EventsCalendar.cshtml" />
     <Content Include="Views\Events\EventsCalendar.cshtml" />
-    <Content Include="Views\ReportMonth\Index.cshtml" />
-    <Content Include="Views\ReportMonth\_AddFormModal.cshtml" />
-    <Content Include="Views\ReportMonth\_SendReport.cshtml" />
-    <Content Include="Views\ReportMonth\Statistics_Report.cshtml" />
     <Content Include="Views\Fontend\ProfileStudent.cshtml" />
     <Content Include="Views\TeacherRole\Index.cshtml" />
     <Content Include="Views\TeacherRole\_teacherRoleModel.cshtml" />
@@ -6444,6 +6443,7 @@
     <Content Include="Views\Student\_ModalDelete.cshtml" />
     <Content Include="Views\Home\ActivityList.cshtml" />
     <Content Include="Views\Home\ActivityDetail.cshtml" />
+    <Content Include="Views\Home\ActivityMoreDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -6531,6 +6531,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012081606482_AddTeacherActivityTable.resx">
       <DependentUpon>202012081606482_AddTeacherActivityTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012161635524_AddDocumentTable.resx">
+      <DependentUpon>202012161635524_AddDocumentTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -15,7 +15,7 @@ namespace Managing_Teacher_Work.Models
         public virtual DbSet<Files> Files { get; set; }
         public virtual DbSet<GroupUser> GroupUser { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
-        public virtual DbSet<ReportMonth> ReportMonth { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Science> Science { get; set; }
         public virtual DbSet<Student> Student { get; set; }

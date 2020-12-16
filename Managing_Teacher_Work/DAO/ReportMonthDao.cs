@@ -15,11 +15,11 @@ namespace Managing_Teacher_Work.DAO
             db = new AppDbContext();
         }
        
-        public List<ReportMonth> ListAll()
+        public List<Document> ListAll()
         {
             return db.ReportMonth.ToList();
         }
-        public List<ReportMonth>ListWithItem(int top)
+        public List<Document>ListWithItem(int top)
         {
             return db.ReportMonth.Where(x => x.ID > 0).OrderByDescending(y => y.CreatedDate).Take(top).ToList();
         }

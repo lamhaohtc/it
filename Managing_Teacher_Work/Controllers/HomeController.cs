@@ -229,5 +229,13 @@ namespace Managing_Teacher_Work.Controllers
             return View();
         }
 
+        public async Task<ActionResult> ActivityMoreDetail(int id)
+        {
+            var activity = await _activityService.GetActivityByIdAsync(id);
+            ViewBag.Activity = activity;
+
+            return View();
+        }
+
     }
 }
