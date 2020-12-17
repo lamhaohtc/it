@@ -6224,6 +6224,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CalendarWorkingController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\FontendController.cs" />
@@ -6246,7 +6247,6 @@
     <Compile Include="DAO\EventDao.cs" />
     <Compile Include="DAO\GroupUserDao.cs" />
     <Compile Include="DAO\MenuDao.cs" />
-    <Compile Include="DAO\ReportMonthDao.cs" />
     <Compile Include="DAO\ScienseDao.cs" />
     <Compile Include="DAO\StudentDao.cs" />
     <Compile Include="DAO\TeacherDao.cs" />
@@ -6333,6 +6333,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\DocumentService.cs" />
     <Compile Include="Services\MenuService.cs" />
     <Compile Include="Services\TeacherService.cs" />
     <Compile Include="Services\TransactionService.cs" />
@@ -6444,6 +6445,8 @@
     <Content Include="Views\Home\ActivityList.cshtml" />
     <Content Include="Views\Home\ActivityDetail.cshtml" />
     <Content Include="Views\Home\ActivityMoreDetail.cshtml" />
+    <Content Include="Views\Document\Index.cshtml" />
+    <Content Include="Views\Document\_DocumentModal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

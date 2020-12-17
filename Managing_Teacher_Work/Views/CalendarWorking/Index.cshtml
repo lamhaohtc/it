@@ -126,21 +126,12 @@
                                     }
                                     @if(session.GroupID=="ADMIN")
                                     {
-                                    <td>
+                                <td>
 
-                                        <a href="#" class="btn btn-info btn-xs" onclick="Sua(this)" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i> Sửa </a>
-                                        <button href="#" class="btn btn-danger btn-xs" style="color:white;">
-                                            <i class="fa fa-trash-o"></i>
-                                            @Ajax.ActionLink("Xoá", "Delete", new { @id = item.ID },
-                                             new AjaxOptions
-                                             {
-                                                 Confirm = "Bạn có muốn xoá bản ghi này?",
-                                                 OnComplete = "$('row_" + @item.ID + "').remove()",
-                                                 HttpMethod = "Delete"
-                                             }, new { @class = "button-delete" })
-                                        </button>
+                                    <a href="#" class="btn btn-info btn-xs" onclick="Sua(this)" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i> Sửa </a>
+                                    <a userId="@item.ID" title="Delete" class="link-delete btn btn-danger btn-xs" onclick="return confirmation(this)"><i class="fa fa-trash"></i> Xóa</a>
 
-                                    </td>
+                                </td>
                                     }
 
                                 </tr>
@@ -155,6 +146,7 @@
 </div>
 
 @Html.Partial("_CalendarWorkingModal")
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
         function Them() {
             SetNull();
@@ -164,22 +156,6 @@
         function SetNull() {
             $("#Name").val('');
         };
-        function Xoa(el) {
-            var id = el.parentNode.parentNode.cells[0].textContent;
-            $.ajax({
-                url: '/CalendarWorking/delList/?id=' + id,
-                type: 'POST',
-                dataType: 'json',
-                success: function () {
-                    alert("Xóa thành công");
-                    window.location.reload();
-                },
-                error: function () {
-                    alert("Xóa thất bại");
-                    window.location.reload();
-                }
-            });
-        }
         function Sua(el) {
             event.preventDefault();
             $("#bt_sua").show();
@@ -212,5 +188,37 @@
                 }
             });
         }
+
+    function confirmation(el) {
+        event.preventDefault();
+        var id = el.parentNode.parentNode.cells[0].textContent;
+        debugger;
+        swal({
+            title: "Bạn Có Chắc Chắn Muốn Xóa?",
+            text: "Sau Khi Xóa, Bạn Sẽ Không Thể Khôi Phục Dữ Liệu Này",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '/calendarworking/delete/' + id,
+                        type: 'POST'
+                    }),
+                        swal({
+                            title: "Thông Báo", text: "Xóa Thành Công !", type:
+                                "success"
+                        }).then(function () {
+                            window.location.reload();
+
+                        }
+                        );
+                } else {
+                    swal("Bạn Vừa Hủy Thao Tác !");
+                }
+            });
+    }
+
 </script>
 

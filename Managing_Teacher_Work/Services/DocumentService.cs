@@ -14,6 +14,7 @@ namespace Managing_Teacher_Work.Services
         Task UpdateDocumentAsync(Document model);
         Task<Document> GetByIdAsync(int id);
         Task<bool> DeteleByIdAsync(int id);
+        Task<List<Document>> GetDocumentListAsync();
     }
     public class DocumentService : IDocumentService
     {
@@ -47,6 +48,11 @@ namespace Managing_Teacher_Work.Services
         public async Task<Document> GetByIdAsync(int id)
         {
             return await _dbContext.Documents.FindAsync(id);
+        }
+
+        public async Task<List<Document>> GetDocumentListAsync()
+        {
+            return await _dbContext.Documents.ToListAsync();
         }
 
         public async Task UpdateDocumentAsync(Document model)

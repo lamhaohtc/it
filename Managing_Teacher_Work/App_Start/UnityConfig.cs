@@ -23,6 +23,7 @@ namespace Managing_Teacher_Work
             container.RegisterType<IMenuService, MenuService>();
             container.RegisterType<ITransactionService, TransactionService>();
             container.RegisterType<IActivityService, ActivityService>();
+            container.RegisterType<IDocumentService, DocumentService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

@@ -1,7 +1,7 @@
 ﻿@{
 
     Layout = "~/Views/Shared/_LayoutIndex.cshtml";
-    var teacherList = ViewBag.teacherRoleList;
+    var documentList = ViewBag.DocumentList;
 
 }
 <style>
@@ -33,13 +33,13 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Danh Sách Ban Chấp Hành<small></small></h2>
+                <h2>Danh Sách Văn Bản Mẫu<small></small></h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                @*<div style="text-align:right">
+                <div style="text-align:right">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" onclick="Them()"><i class="fa fa-plus-square"></i>&nbsp;Thêm mới</button>
-                </div>*@
+                </div>
                 <div>
                     @if (TempData["AlertMessage"] != null)
                     {
@@ -51,25 +51,23 @@
                 <table id="datatable" class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th style="display: none">Ma</th>
-                            <th>Tên Cán Bộ</th>
-                            <th>Chức Vụ</th>
-                            <th>Gmail</th>
-                            <th>Ngày Bắt Đầu</th>
-                            <th>Ngày Kết Thúc</th>
-                            <th>Thao Tác</th>
+                            <th style="display:none;">Mã</th>
+                            <th>Tên Văn Bản</th>
+                            <th>Ngày Tạo</th>
+                            <th>Ngày Cập Nhật</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        @if (teacherList != null)
+                        @if (documentList != null)
                         {
-                            foreach (var item in teacherList)
+
+                            foreach (var item in documentList)
                             {
                                 <tr id="row_@item.ID">
-                                    <td style="display: none">@item.ID</td>
-                                    <td><a href="#!" onclick="Sua(this)" data-toggle="modal" data-target="#myModal">@(item.Name_Teacher ?? "")</a></td>
-                                    <td>@item.Role.Name</td>
-                                    <td>@item.Email</td>
+                                    <td style="display:none">@item.ID </td>
+                                    <td>@item.Title</td>
                                     <td>@item.CreatedDate</td>
                                     <td>@item.ModifiedDate</td>
                                     @if (session.GroupID == "ADMIN")
@@ -80,7 +78,6 @@
 
                                         </td>
                                     }
-
                                 </tr>
                             }
                         }
@@ -92,7 +89,7 @@
     </div>
 </div>
 
-@Html.Partial("_teacherRoleModel")
+@Html.Partial("_DocumentModal")
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
@@ -112,20 +109,16 @@
         $("#bt_them").hide();
         var id = el.parentNode.parentNode.cells[0].textContent;
         $.ajax({
-            url: '/TeacherRole/getList/?id=' + id,
+            url: '/document/getList/?id=' + id,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
                 var json = JSON.parse(data);
                 $("#ID").val(json.ID);
-                $("#Name_Teacher").val(json.Name_Teacher);
-                $("#Phone").val(json.Phone);
-                $("#DateOfBirth").val(json.DateOfBirth);
-                $("#Avatar").val(json.Avatar);
-                $("#Address").val(json.Address);
-                $("#Status").val(json.Status);
-                $("#RoleId").val(json.RoleId);
-                debugger;
+                $("#title").val(json.Title);
+                $("#Description").val(json.Description);
+                CKEDITOR.instances['Description'].setData(json.Description);
+                $("#FilePath").val(json.FilePath);
             },
             error: function (err) {
                 alert("Error: " + err.responseText);
@@ -147,7 +140,7 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '/teacherRole/delete/' + id,
+                        url: '/document/delete/' + id,
                         type: 'POST'
                     }),
                         swal({
@@ -169,4 +162,6 @@
         return date;
     }
 </script>
+
+
 
