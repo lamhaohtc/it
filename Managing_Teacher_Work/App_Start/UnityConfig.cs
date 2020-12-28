@@ -24,6 +24,7 @@ namespace Managing_Teacher_Work
             container.RegisterType<ITransactionService, TransactionService>();
             container.RegisterType<IActivityService, ActivityService>();
             container.RegisterType<IDocumentService, DocumentService>();
+            container.RegisterType<ITeacherActitvityService, TeacherActivityService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

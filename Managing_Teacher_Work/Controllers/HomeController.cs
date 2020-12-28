@@ -21,6 +21,7 @@ namespace Managing_Teacher_Work.Controllers
         private readonly IWorkService _workService;
         private readonly IMenuService _menuService;
         private readonly IActivityService _activityService;
+        private readonly ITeacherActitvityService _teacherActitvityService;
         public HomeController(AppDbContext dbContext, 
             IScienseService scienseService,
             ITeacherService teacherService,
@@ -28,7 +29,8 @@ namespace Managing_Teacher_Work.Controllers
             ITypeCalendarService typeCalendarService,
             IWorkService workService,
             IMenuService menuService,
-            IActivityService activityService)
+            IActivityService activityService,
+            ITeacherActitvityService teacherActitvityService)
         {
             _dbContext = dbContext;
             _scienseService = scienseService;
@@ -38,6 +40,7 @@ namespace Managing_Teacher_Work.Controllers
             _workService = workService;
             _menuService = menuService;
             _activityService = activityService;
+            _teacherActitvityService = teacherActitvityService;
         }
         public async Task<ActionResult> Index()
         {         

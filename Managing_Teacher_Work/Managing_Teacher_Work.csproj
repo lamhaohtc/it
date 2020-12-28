@@ -6335,6 +6335,7 @@
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\DocumentService.cs" />
     <Compile Include="Services\MenuService.cs" />
+    <Compile Include="Services\TeacherActivityService.cs" />
     <Compile Include="Services\TeacherService.cs" />
     <Compile Include="Services\TransactionService.cs" />
     <Compile Include="Services\TypeCalandarService.cs" />
