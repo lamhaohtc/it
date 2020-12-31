@@ -108,6 +108,8 @@ namespace Managing_Teacher_Work.Controllers
                     model.CreatedDate = model.CreatedDate.GetValueOrDefault(System.DateTime.Now);
                     model.Status = model.Status.ToString();
                     model.SicenceID = model.SicenceID;
+                    model.RoleId = model.RoleId;
+                    model.Email = model.Email;
 
                     _dbContext.Teacher.Add(model);
                     _dbContext.SaveChanges();
@@ -136,6 +138,8 @@ namespace Managing_Teacher_Work.Controllers
                     list.ModifiedDate = model.CreatedDate.GetValueOrDefault(System.DateTime.Now);
                     list.Status = model.Status.ToString().Trim();
                     list.SicenceID = model.SicenceID;
+                    list.RoleId = model.RoleId;
+                    list.Email = model.Email;
                     _dbContext.SaveChanges();
                     model = null;
                 }

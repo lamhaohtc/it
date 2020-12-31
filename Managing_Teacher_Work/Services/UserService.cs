@@ -63,7 +63,7 @@ namespace Managing_Teacher_Work.Services
 
         public async Task<List<User>> GetListUserAsync()
         {
-            return await _dbContext.User.ToListAsync();
+            return await _dbContext.User.OrderByDescending(u => u.CreatedDate).ToListAsync();
         }
 
         public IEnumerable<User> GetPageListUser(int pageNum, int pageSize)

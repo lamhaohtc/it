@@ -60,8 +60,6 @@
 
                         </tr>
                     </thead>
-
-
                     <tbody>
                         @if (listUser != null)
                         {
@@ -69,19 +67,23 @@
                             foreach (var item in listUser)
                             {
 
-
                                 <tr id="row_@item.ID">
                                     <td style="display:none">@item.ID </td>
 
                                     <td><a href="#!" onclick="Sua(this)" data-toggle="modal" data-target="#myModal">@(item.Name ?? "")</a></td>
                                     <td>@(item.UserName ?? "")</td>
                                     <td>@item.GroupID</td>
-                                    <td>@(item.Status == true ? "Kích hoạt" : "Huỷ kích hoạt")</td>
-
+                                    @{
+                                        if (item.Status == true)
+                                        {
+                                            <td class="text-center green"><i class="fa fa-check" aria-hidden="true"></i></td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center red"><i class="fa fa-window-close" aria-hidden="true"></i></td>
+                                        }
+                                    }
                                     <td>@(item.Phone != null ? item.Phone : "")</td>
-
-
-
 
                                     @if (session.GroupID == "ADMIN")
                                     {
@@ -92,7 +94,6 @@
 
                                         </td>
                                     }
-
 
                                 </tr>
                             }

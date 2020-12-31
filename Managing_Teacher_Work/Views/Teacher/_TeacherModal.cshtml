@@ -20,10 +20,24 @@
             alert('Bạn chưa chọn ảnh đại diện!');
             return false;
         }
+        if ($('#Email').val() == "") {
+            alert('Bạn chưa nhập email !');
+            return false;
+        }
         if ($('#Status').val() == "Khongchon") {
             alert('Bạn chưa chọn trạng thái!');
             return false;
         }
+        if ($('#RoleId').val() == "Khongchon") {
+            alert('Bạn chưa chọn chức vụ!');
+            return false;
+        }
+        if ($('#SicenceID').val() == "Khongchon") {
+            alert('Bạn chưa chọn đơn vị !');
+            return false;
+        }
+
+        debugger;
         return true;
     }
 </script>
@@ -52,16 +66,16 @@
                     </div>
                     <div class="form-group">
                         <label>Địa chỉ</label>
-                       <input type="text" class="form-control" name="Address" id="Address"/>
+                        <input type="text" class="form-control" name="Address" id="Address" />
                     </div>
                     <div class="form-group">
                         <label>Ngày sinh<span style="color:red">(*)</span></label>
                         <input class="form-control" type="date" id="DateOfBirth" name="DateOfBirth" data-date-format />
-                        <input class="form-control" id="NTL" name="NTL" type="text" disabled/>
+                        <input class="form-control" id="NTL" name="NTL" type="text" disabled />
                     </div>
                     <div class="form-group">
                         <label>Ảnh đại diện<span style="color:red">(*)</span></label>
-                        <input type="text" name="Avatar" id="Avatar" class="form-control"/>
+                        <input type="text" name="Avatar" id="Avatar" class="form-control" />
                         <input type="button" value="Tải ảnh lên" onclick="BrowseServer();" class="controls" />
                     </div>
                     <div class="form-group">
@@ -72,9 +86,12 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="Email" id="Email" class="form-control"/>
+                    </div>
+                    <div class="form-group">
                         <label>Trạng thái<span style="color:red">(*)</span></label>
                         <select class="form-control" name="Status" id="Status">
-                            <option value="KhongChon">Chọn...</option>
                             <option value="GiaoVienChinhThuc">Giáo viên</option>
                             <option value="GiaoVienThucTap">Giáo viên thực tập</option>
                         </select>
@@ -84,13 +101,20 @@
                         <input class="form-control" type="text" id="CreatedDate" name="CreatedDate" value="System.DateTime.Now" />
                     </div>
                     <div class="form-group">
-                        <label>Bộ Môn<span style="color:red">(*)</span></label>
+                        <label>Chức Vụ<span style="color:red">(*)</span></label>
+                        <select class="form-control" name="RoleId" id="RoleId">
+                            <option value="DV">Thành Viên</option>
+                            <option value="TP">Tổ Phó</option>
+                            <option value="TT">Tổ Trưởng</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Đơn Vị<span style="color:red">(*)</span></label>
                         <select class="form-control" name="SicenceID" id="SicenceID">
-                            <option value="KhongChon">---Chọn khoa---</option>
                             @foreach (var item in listScience)
                             {
                                 <option value="@item.ID">@item.Name</option>
-                            }                                                                              
+                            }
                         </select>
                     </div>
                 </div>

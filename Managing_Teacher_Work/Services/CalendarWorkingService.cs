@@ -49,7 +49,7 @@ namespace Managing_Teacher_Work.Services
 
         public async Task<List<CalendarWorking>> GetCalendarWorkingListAsyc()
         {
-            return await _dbContext.CalendarWorking.Where(c => c.ID > 0).OrderBy(o => o.CreatedDate).ToListAsync();
+            return await _dbContext.CalendarWorking.OrderByDescending(o => o.CreatedDate).ToListAsync();
         }
     }
 }

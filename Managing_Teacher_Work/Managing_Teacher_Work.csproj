@@ -6235,6 +6235,7 @@
     <Compile Include="Controllers\ScienseController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentTestController.cs" />
+    <Compile Include="Controllers\TeacherActivityController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\TeacherRoleController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
@@ -6264,6 +6265,7 @@
     </Compile>
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\NumberHelper.cs" />
     <Compile Include="Helpers\ValueName.cs" />
     <Compile Include="Migrations\202011171539175_InitialCreate.cs" />
     <Compile Include="Migrations\202011171539175_InitialCreate.designer.cs">
@@ -6376,11 +6378,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyDatabaseEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ActivityTypeViewModel.cs" />
     <Compile Include="ViewModels\CalendarWorkingViewModel.cs" />
     <Compile Include="ViewModels\ClassViewModel.cs" />
     <Compile Include="ViewModels\ScienceViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
     <Compile Include="ViewModels\TeacherViewModel.cs" />
+    <Compile Include="ViewModels\TotalTransactionViewModel.cs" />
+    <Compile Include="ViewModels\TransactionDetailViewModel.cs" />
     <Compile Include="ViewModels\TransactionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -6461,6 +6466,9 @@
     <Content Include="Views\Home\ActivityMoreDetail.cshtml" />
     <Content Include="Views\Document\Index.cshtml" />
     <Content Include="Views\Document\_DocumentModal.cshtml" />
+    <Content Include="Views\TeacherActivity\Index.cshtml" />
+    <Content Include="Views\Home\TotalTransactionView.cshtml" />
+    <Content Include="Views\Home\GetTotalTransactionByMonth.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

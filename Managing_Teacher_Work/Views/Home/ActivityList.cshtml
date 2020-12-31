@@ -23,16 +23,16 @@
             <a href="/Home-ManageTeacher/">Danh Sách Công Đoàn Viên</a>
         </li>
 
-        <li role="presentation" class="">
+        <li role="presentation" class="active">
             <a href="/Home/ActivityList">Hoạt Động Công Đoàn</a>
         </li>
         <li role="presentation">
-            <a href="/Report/">Tạo Báo cáo tháng</a>
+            <a href="/Home/TotalTransactionView">Thống Kê Chi Phí</a>
         </li>
         @if (session.GroupID == "ADMIN")
         {
             <li role="presentation">
-                <a href="/Statistics-Report/">Thống kê báo cáo tháng</a>
+                <a href="/Home/GetTotalTransactionByMonth">Thống Kê Chi Tiết Phí</a>
             </li>
         }
 

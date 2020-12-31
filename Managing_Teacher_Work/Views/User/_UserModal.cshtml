@@ -1,6 +1,7 @@
 ﻿@{
     var listGroup = (List<Managing_Teacher_Work.Models.GroupUser>)ViewBag.listGroup;
     var teacherList = ViewBag.TeacherList;
+    var disable = ViewBag.Disable;
 }
 
 <script>
@@ -30,6 +31,10 @@
         }
         if ($('#GroupID').val() == "KhongChon") {
             alert('Bạn chưa chọn quyền!');
+            return false;
+        }
+        if ($('#TeacherId').val() == "KhongChon") {
+            alert('Bạn chưa chọn cán bộ !');
             return false;
         }
         if ($('#Phone').val() == "") {

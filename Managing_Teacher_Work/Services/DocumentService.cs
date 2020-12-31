@@ -52,7 +52,7 @@ namespace Managing_Teacher_Work.Services
 
         public async Task<List<Document>> GetDocumentListAsync()
         {
-            return await _dbContext.Documents.ToListAsync();
+            return await _dbContext.Documents.OrderByDescending(d => d.CreatedDate).ToListAsync();
         }
 
         public async Task UpdateDocumentAsync(Document model)

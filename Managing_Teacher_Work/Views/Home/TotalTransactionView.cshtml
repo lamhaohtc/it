@@ -1,0 +1,129 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutIndex.cshtml";
+    var totalUnionFee = ViewBag.TotalUnionFee;
+    var totalDonateFee = ViewBag.TotalDonateFee;
+    var totalCharityFee = ViewBag.TotalCharityFee;
+    var totalAll = ViewBag.TotalAll;
+    var session = (Managing_Teacher_Work.Common.UserLogin)Session[Managing_Teacher_Work.Common.CommonConstants.USER_SESSION];
+}
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<div class="row">
+    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+        <li role="presentation">
+            <a href="/Home/" id="home-tab">Tin Tức - Sự Kiện</a>
+        </li>
+        <li role="presentation" id="bt">
+            <a href="/Home-ManageTeacher/">Danh Sách Công Đoàn Viên</a>
+        </li>
+        <li role="presentation">
+            <a href="/Home/ActivityList">Hoạt Động Công Đoàn</a>
+        </li>
+        <li role="presentation" class="active">
+            <a href="/Home/TotalTransactionView">Thống Kê Chi Phí</a>
+        </li>
+        @if (session.GroupID == "ADMIN")
+        {
+            <li role="presentation">
+                <a href="/Home/GetTotalTransactionByMonth">Thống Kê Chi Tiết Phí</a>
+            </li>
+        }
+
+        <li role="presentation">
+            <a href="/Extention/">Tiện ích</a>
+        </li>
+    </ul>
+</div>
+
+<figure class="highcharts-figure">
+    <div id="container">
+    </div>
+    <table style="margin-top: 30px;" class="table">
+        <tr>
+            <th scope="col">Tổng Công Đoàn Phí: </th>
+            <td scope="col">@Managing_Teacher_Work.Helpers.NumberHelper.GetFormattedNumber(totalUnionFee, "{0:n3}") VND</td>
+        </tr>
+        <tr>
+            <th scope="col">Tổng Quyên Góp: </th>
+            <td scope="col">@Managing_Teacher_Work.Helpers.NumberHelper.GetFormattedNumber(totalDonateFee, "{0:n3}") VND</td>
+        </tr>
+        <tr>
+            <th scope="col">Tổng Quỹ Từ Thiện: </th>
+            <td scope="col">@Managing_Teacher_Work.Helpers.NumberHelper.GetFormattedNumber(totalCharityFee, "{0:n3}") VND</td>
+        </tr>
+        <tr>
+            <th scope="col">Tổng Tất Cả: </th>
+            <td scope="col">@Managing_Teacher_Work.Helpers.NumberHelper.GetFormattedNumber(totalAll, "{0:n3}") VND</td>
+        </tr>
+    </table>
+</figure>
+
+<script>
+    $(document).ready(function () {
+        $.getJSON("/Home/TotalTransaction", function (data) {
+
+            Highcharts.setOptions({
+                colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+                    return {
+                        radialGradient: {
+                            cx: 0.5,
+                            cy: 0.3,
+                            r: 0.7
+                        },
+                        stops: [
+                            [0, color],
+                            [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+                        ]
+                    };
+                })
+            });
+
+            // Build the chart
+            Highcharts.chart('container', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Thống Kê Chi Phí, 2020'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            connectorColor: 'silver'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Tỷ Lệ',
+                    data: [
+                        { name: 'Công Đoàn Phí', y: data.TotalUnionFee },
+                        { name: 'Quyên Góp', y: data.TotalDonateFee },
+                        { name: 'Quỹ Từ Thiện', y: data.TotalCharityFee },
+                    ]
+                }]
+            });
+
+        });
+    });
+
+</script>
+

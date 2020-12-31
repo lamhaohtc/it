@@ -53,7 +53,7 @@ namespace Managing_Teacher_Work.Services
 
         public async Task<List<Teacher>> GetAllTeacherListAsync()
         {
-            return await _dbContext.Teacher.ToListAsync();
+            return await _dbContext.Teacher.OrderByDescending(t => t.CreatedDate).ToListAsync();
         }
 
         public async Task<Teacher> GetTeacherByIdAysnc(int id)

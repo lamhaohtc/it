@@ -18,6 +18,10 @@ namespace Managing_Teacher_Work.Services
         Task<Activity> GetActivityByIdAsync(int id);
         Task<Activity> AddActivityAsync(Activity model);
         Task UpdateActivityAsync(Activity activity);
+        Task<int> CountArt();
+        Task<int> CountSport();
+        Task<int> CountCharity();
+        Task<int> CountVolunteer();
     }
     public class ActivityService : IActivityService
     {
@@ -33,6 +37,26 @@ namespace Managing_Teacher_Work.Services
             await _dbContext.SaveChangesAsync();
 
             return activity;
+        }
+
+        public async Task<int> CountArt()
+        {
+            return await _dbContext.Activities.Where(a => a.ActivityType == (int)ActivityTypeEnum.Art).CountAsync();
+        }
+
+        public async Task<int> CountCharity()
+        {
+            return await _dbContext.Activities.Where(a => a.ActivityType == (int)ActivityTypeEnum.Charity).CountAsync();
+        }
+
+        public async Task<int> CountSport()
+        {
+            return await _dbContext.Activities.Where(a => a.ActivityType == (int)ActivityTypeEnum.Sport).CountAsync();
+        }
+
+        public async Task<int> CountVolunteer()
+        {
+            return await _dbContext.Activities.Where(a => a.ActivityType == (int)ActivityTypeEnum.Volunteer).CountAsync();
         }
 
         public async Task<bool> DeleteActivityByIdAsync(int id)

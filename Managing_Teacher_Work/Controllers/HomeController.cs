@@ -8,6 +8,10 @@ using Managing_Teacher_Work.SQLEDM;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Managing_Teacher_Work.Services;
+using System;
+using Managing_Teacher_Work.Enums;
+using Managing_Teacher_Work.Helpers;
+using Newtonsoft.Json;
 
 namespace Managing_Teacher_Work.Controllers
 {
@@ -22,7 +26,8 @@ namespace Managing_Teacher_Work.Controllers
         private readonly IMenuService _menuService;
         private readonly IActivityService _activityService;
         private readonly ITeacherActitvityService _teacherActitvityService;
-        public HomeController(AppDbContext dbContext, 
+        private readonly ITransactionService _transactionService;
+        public HomeController(AppDbContext dbContext,
             IScienseService scienseService,
             ITeacherService teacherService,
             ICalendarWorkingService calendarWorkingService,
@@ -30,7 +35,8 @@ namespace Managing_Teacher_Work.Controllers
             IWorkService workService,
             IMenuService menuService,
             IActivityService activityService,
-            ITeacherActitvityService teacherActitvityService)
+            ITeacherActitvityService teacherActitvityService,
+            ITransactionService transactionService)
         {
             _dbContext = dbContext;
             _scienseService = scienseService;
@@ -41,24 +47,25 @@ namespace Managing_Teacher_Work.Controllers
             _menuService = menuService;
             _activityService = activityService;
             _teacherActitvityService = teacherActitvityService;
+            _transactionService = transactionService;
         }
         public async Task<ActionResult> Index()
-        {         
+        {
             var listCW = new List<CalendarWorkingViewModel>();
             var calendarWorkings = await _calendarWorkingService.GetCalendarWorkingListAsyc();
             calendarWorkings.ForEach(S =>
             {
                 listCW.Add(new CalendarWorkingViewModel(
-                    S.ID, 
-                    S.Name_CalendarWorking, 
-                    S.Description, 
-                    S.DateStart, 
-                    S.DateEnd, 
-                    S.Address, 
-                    S.TeacherID, 
-                    S.WorkID, 
-                    S.TypeCalendarID, 
-                    S.WorkState, 
+                    S.ID,
+                    S.Name_CalendarWorking,
+                    S.Description,
+                    S.DateStart,
+                    S.DateEnd,
+                    S.Address,
+                    S.TeacherID,
+                    S.WorkID,
+                    S.TypeCalendarID,
+                    S.WorkState,
                     S.Status
                 ));
             });
@@ -66,7 +73,7 @@ namespace Managing_Teacher_Work.Controllers
             ViewBag.listCW = listCW;
             var dao = new CalendarWorkingDao();
             var model = dao.ListAll();
-                     
+
             return View(model);
         }
 
@@ -95,13 +102,13 @@ namespace Managing_Teacher_Work.Controllers
             ViewBag.listClass = listClass;
             return View();
         }
-     
+
         public ActionResult ManageClass()
         {
             return View();
         }
-      
-       
+
+
         public ActionResult CalendarNote()
         {
             return View();
@@ -132,7 +139,7 @@ namespace Managing_Teacher_Work.Controllers
 
             return View();
         }
-        
+
         public async Task<ActionResult> CalendarWorkingDetails(int id)
         {
             var cw = await _calendarWorkingService.GetCalendarWorkingByIdAsync(id);
@@ -176,7 +183,7 @@ namespace Managing_Teacher_Work.Controllers
             {
                 if (e.EventID > 0)
                 {
-                 
+
                     var v = dc.Events.Where(a => a.EventID == e.EventID).FirstOrDefault();
                     if (v != null)
                     {
@@ -236,6 +243,68 @@ namespace Managing_Teacher_Work.Controllers
         {
             var activity = await _activityService.GetActivityByIdAsync(id);
             ViewBag.Activity = activity;
+
+            return View();
+        }
+
+        public async Task<ActionResult> TotalTransaction()
+        {
+            var model = new TotalTransactionViewModel();
+
+            var totalCharityFee = await _transactionService.TotalCharityFee();
+            var totalDonateFee = await _transactionService.TotalDonateFee();
+            var totalUnionFee = await _transactionService.TotalUnionFee();
+
+            model.TotalCharityFee = totalCharityFee;
+            model.TotalDonateFee = totalDonateFee;
+            model.TotalUnionFee = totalUnionFee;
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> TotalTransactionView()
+        {
+            ViewBag.TotalCharityFee = await _transactionService.TotalCharityFee();
+            ViewBag.TotalDonateFee = await _transactionService.TotalDonateFee();
+            ViewBag.TotalUnionFee = await _transactionService.TotalUnionFee();
+            ViewBag.TotalAll = await _transactionService.TotalAllTransaction();
+
+            return View();
+        }
+
+        public async Task<ActionResult> GetTotalTransactionByMonth()
+        {
+            var charityList = new List<TransactionDetailViewModel>();
+            var donateList = new List<TransactionDetailViewModel>();
+            var UnionList = new List<TransactionDetailViewModel>();
+
+            foreach (MonthEnum month in Enum.GetValues(typeof(MonthEnum)))
+            {
+                var totalCharityAmount = await _transactionService.GetTotalTransactionByTypeAndMonth(month, TransactionType.CHARITY_FEE);
+                var totalDonateAmount = await _transactionService.GetTotalTransactionByTypeAndMonth(month, TransactionType.DONATE);
+                var totalUnionAmount = await _transactionService.GetTotalTransactionByTypeAndMonth(month, TransactionType.CHARITY_FEE);
+
+                if(totalCharityAmount > 0)
+                {
+                    charityList.Add(new TransactionDetailViewModel(EnumHelper.GetEnumDescription(month), totalCharityAmount));
+                }
+
+                if(totalDonateAmount > 0)
+                {
+                    donateList.Add(new TransactionDetailViewModel(EnumHelper.GetEnumDescription(month), totalDonateAmount));
+                }
+
+                if(totalUnionAmount > 0)
+                {
+                    UnionList.Add(new TransactionDetailViewModel(EnumHelper.GetEnumDescription(month), totalUnionAmount));
+                }
+
+
+            }
+
+            ViewBag.Charity = JsonConvert.SerializeObject(charityList);
+            ViewBag.Donate = JsonConvert.SerializeObject(donateList);
+            ViewBag.Union = JsonConvert.SerializeObject(UnionList);
 
             return View();
         }

@@ -29,7 +29,7 @@ namespace Managing_Teacher_Work.Services
 
         public async Task<List<TypeCalendar>> GetTypeCalendarListAsync()
         {
-            return await _dbContext.TypeCalendar.ToListAsync();
+            return await _dbContext.TypeCalendar.OrderByDescending(t => t.CreatedDate).ToListAsync();
         }
     }
 }

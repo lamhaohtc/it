@@ -11,6 +11,8 @@ namespace Managing_Teacher_Work.Enums
         [Description("Công Đoàn Phí")]
         UNION_FEE = 1,
         [Description("Quyên Góp")]
-        DONATE = 2
+        DONATE,
+        [Description("Quỹ Từ Thiện")]
+        CHARITY_FEE
     }
 }

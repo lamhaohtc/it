@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutIndex.cshtml";
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title: {
+		text: "Thống Kê Chi Phí Theo Tháng"
+	},
+	toolTip: {
+		shared: true
+	},
+	data: [{
+		type: "line",
+		name: "Quỹ Từ Thiện",
+		showInLegend: true,
+		dataPoints: @Html.Raw(ViewBag.Charity)
+	}, {
+		type: "line",
+		name: "Quyên Góp",
+		showInLegend: true,
+		dataPoints: @Html.Raw(ViewBag.Donate)
+	}, {
+		type: "line",
+		name: "Công Đoàn Phí",
+		showInLegend: true,
+		dataPoints: @Html.Raw(ViewBag.Union)
+	}]
+});
+chart.render();
+
+}
+    </script>
+</head>
+<body>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>

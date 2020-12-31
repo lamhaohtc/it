@@ -17,16 +17,19 @@ namespace Managing_Teacher_Work.Controllers
     {
         private readonly AppDbContext _dbContext;
         private readonly TeacherService _teacherService;
+        private readonly UserService _userService;
         public UserController(AppDbContext dbContext,
-            TeacherService teacherService)
+            TeacherService teacherService,
+            UserService userService)
         {
             _dbContext = dbContext;
             _teacherService = teacherService;
+            _userService = userService;
         }
         public bool isThemMoi;
         public async Task<ActionResult> Index()
         {
-            List<User> listUser = _dbContext.User.ToList();
+            List<User> listUser = await _userService.GetListUserAsync();
             ViewBag.listUser = listUser;
             List<GroupUser> listGroup = _dbContext.GroupUser.ToList();
             ViewBag.listGroup = listGroup;
@@ -74,6 +77,7 @@ namespace Managing_Teacher_Work.Controllers
             else if (submit == "Cập Nhật")
             {
                 isThemMoi = false;
+                ViewBag.Disable = isThemMoi;
                 if (model != null)
                 {
                     var list = _dbContext.User.SingleOrDefault(x => x.ID == model.ID);
