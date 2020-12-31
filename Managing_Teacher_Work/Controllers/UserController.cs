@@ -8,23 +8,30 @@ using Managing_Teacher_Work.DAO;
 using Newtonsoft.Json;
 using System.Globalization;
 using Managing_Teacher_Work.Common;
+using Managing_Teacher_Work.Services;
+using System.Threading.Tasks;
 
 namespace Managing_Teacher_Work.Controllers
 {
     public class UserController : BaseController
     {
         private readonly AppDbContext _dbContext;
-        public UserController(AppDbContext dbContext)
+        private readonly TeacherService _teacherService;
+        public UserController(AppDbContext dbContext,
+            TeacherService teacherService)
         {
             _dbContext = dbContext;
+            _teacherService = teacherService;
         }
         public bool isThemMoi;
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             List<User> listUser = _dbContext.User.ToList();
             ViewBag.listUser = listUser;
             List<GroupUser> listGroup = _dbContext.GroupUser.ToList();
             ViewBag.listGroup = listGroup;
+            ViewBag.TeacherList = await _teacherService.GetAllTeacherListAsync();
+
 
             return View();
         }
@@ -53,6 +60,7 @@ namespace Managing_Teacher_Work.Controllers
                     model.Status = model.Status;
                     model.Phone = model.Phone.ToString().Trim();
                     model.Email = model.Email.ToString().Trim();
+                    model.TeacherId = model.TeacherId;
                     model.CreatedDate = model.CreatedDate.GetValueOrDefault(System.DateTime.Now);
                   
 
@@ -76,6 +84,7 @@ namespace Managing_Teacher_Work.Controllers
                     list.Status = model.Status;
                     list.Phone = model.Phone.ToString().Trim();
                     list.Email = model.Email.ToString().Trim();
+                    list.TeacherId = model.TeacherId;
                     list.ModifiedDate = model.CreatedDate.GetValueOrDefault(System.DateTime.Now);
                     _dbContext.SaveChanges();
                     model = null;

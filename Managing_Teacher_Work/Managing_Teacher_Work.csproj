@@ -6258,6 +6258,7 @@
     <Compile Include="Enums\MonthEnum.cs" />
     <Compile Include="Enums\RoleEnum.cs" />
     <Compile Include="Enums\TransactionType.cs" />
+    <Compile Include="Enums\UserStatus.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -6304,9 +6305,21 @@
     <Compile Include="Migrations\202012081606482_AddTeacherActivityTable.designer.cs">
       <DependentUpon>202012081606482_AddTeacherActivityTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012151452540_AddFilePathToActivity.cs" />
+    <Compile Include="Migrations\202012151452540_AddFilePathToActivity.Designer.cs">
+      <DependentUpon>202012151452540_AddFilePathToActivity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202012161635524_AddDocumentTable.cs" />
     <Compile Include="Migrations\202012161635524_AddDocumentTable.designer.cs">
       <DependentUpon>202012161635524_AddDocumentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012281530443_AddUserIdToTeacherTable.cs" />
+    <Compile Include="Migrations\202012281530443_AddUserIdToTeacherTable.designer.cs">
+      <DependentUpon>202012281530443_AddUserIdToTeacherTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012281627577_UpdateUserTeacherTable.cs" />
+    <Compile Include="Migrations\202012281627577_UpdateUserTeacherTable.designer.cs">
+      <DependentUpon>202012281627577_UpdateUserTeacherTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -6536,8 +6549,17 @@
     <EmbeddedResource Include="Migrations\202012081606482_AddTeacherActivityTable.resx">
       <DependentUpon>202012081606482_AddTeacherActivityTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012151452540_AddFilePathToActivity.resx">
+      <DependentUpon>202012151452540_AddFilePathToActivity.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012161635524_AddDocumentTable.resx">
       <DependentUpon>202012161635524_AddDocumentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012281530443_AddUserIdToTeacherTable.resx">
+      <DependentUpon>202012281530443_AddUserIdToTeacherTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012281627577_UpdateUserTeacherTable.resx">
+      <DependentUpon>202012281627577_UpdateUserTeacherTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

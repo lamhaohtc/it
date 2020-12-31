@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,6 +29,8 @@ namespace Managing_Teacher_Work.Models
 
         [StringLength(255)]
         public string Email { get; set; }
+        public int TeacherId { get; set; }
+        public virtual Teacher Teacher { get; set; }
 
     }
 }

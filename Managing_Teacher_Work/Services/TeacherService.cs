@@ -18,6 +18,7 @@ namespace Managing_Teacher_Work.Services
         Task<List<Teacher>> GetTeacherRoleAsync();
         Task<Teacher> AddTacherAsync(Teacher teacher);
         Task UpdateTeacherAsync(Teacher teacher);
+        Task<List<Teacher>> GetAllTeacherListAsync();
 
     }
     public class TeacherService : ITeacherService
@@ -48,6 +49,11 @@ namespace Managing_Teacher_Work.Services
             }
 
             return false;
+        }
+
+        public async Task<List<Teacher>> GetAllTeacherListAsync()
+        {
+            return await _dbContext.Teacher.ToListAsync();
         }
 
         public async Task<Teacher> GetTeacherByIdAysnc(int id)

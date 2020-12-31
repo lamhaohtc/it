@@ -108,6 +108,12 @@ namespace Managing_Teacher_Work.Models
                 .HasForeignKey(t => t.ActivityId)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Teacher>()
+                .HasMany(t => t.Users)
+                .WithRequired(t => t.Teacher)
+                .HasForeignKey(t => t.TeacherId)
+                .WillCascadeOnDelete(false);
+
         }
 
     }

@@ -1,9 +1,21 @@
 ﻿@{
     var listGroup = (List<Managing_Teacher_Work.Models.GroupUser>)ViewBag.listGroup;
+    var teacherList = ViewBag.TeacherList;
 }
 
 <script>
     function validate() {
+        if ($('#TeacherId').val() == "") {
+            alert('Vui Lòng Chọn Cán Bộ !');
+            return false;
+        }
+        if ($('#Phone').val() == "") {
+            alert('Số điện thoại không được để trống!');
+            return false;
+        } if ($('#Phone').val() == "") {
+            alert('Số điện thoại không được để trống!');
+            return false;
+        }
         if ($('#Name').val() == "") {
             alert('Tên người dùng không được để trống!');
             return false;
@@ -48,6 +60,21 @@
                 <div class="modal-body">
                     <input type="hidden" name="ID" id="ID" value="0">
                     <div class="form-group">
+                        <label>Cán Bộ<span style="color:red">(*)</span></label>
+                        <select name="TeacherId" id="TeacherId" class="form-control">
+                            <option value="chooseTeacher">Chon...</option>
+                            @{
+                                if (teacherList != null)
+                                {
+                                    foreach (var item in teacherList)
+                                    {
+                                        <option value="@item.ID">@item.Name_Teacher</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Tên người dùng<span style="color:red">(*)</span></label>
                         <input class="form-control" type="text" id="Name" name="Name" />
                     </div>
@@ -78,15 +105,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Trạng thái</label>
-                        <select name="Status" class="form-control">
-                            <option value="True">Kích hoạt</option>
-                            <option value="False">Huỷ kích hoạt</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label>Số điện thoại<span style="color:red">(*)</span></label>
-                        <input type="number" name="Phone" id="Phone" class="form-control" required="required" />
+                        <input type="text" name="Phone" id="Phone" class="form-control" required="required" />
 
                     </div>
                     <div class="form-group">
@@ -101,25 +121,23 @@
                             <option value="False">Huỷ kích hoạt</option>
                         </select>
                     </div>
-                
+                    <div class="form-group" hidden>
+                        <label>CreatedDate</label>
+                        <input class="form-control" type="text" id="CreatedDate" name="CreatedDate" value="System.DateTime.Now" />
+                    </div>
 
-                <div class="form-group" hidden>
-                    <label>CreatedDate</label>
-                    <input class="form-control" type="text" id="CreatedDate" name="CreatedDate" value="System.DateTime.Now" />
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><i class=""></i>&nbsp; Đóng</button>
+                    <button type="reset" class="btn btn-warning btn-sm"><i class="fa fa-map-marker"></i>&nbsp; Làm mới</button>
+
+                    <input type="submit" name="submit" class="btn btn-success btn-sm" id="bt_sua" value="Cập Nhật" onclick="return validate();" />
+                    <input type="submit" name="submit" class="btn btn-success btn-sm" id="bt_them" value="Thêm" onclick="return validate();" />
+
                 </div>
 
             </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><i class=""></i>&nbsp; Đóng</button>
-                <button type="reset" class="btn btn-warning btn-sm"><i class="fa fa-map-marker"></i>&nbsp; Làm mới</button>
-
-                <input type="submit" name="submit" class="btn btn-success btn-sm" id="bt_sua" value="Cập Nhật" onclick="return validate();" />
-                <input type="submit" name="submit" class="btn btn-success btn-sm" id="bt_them" value="Thêm" onclick="return validate();" />
-
-            </div>
-
         </div>
-    </div>
 </form>

@@ -15,6 +15,7 @@ namespace Managing_Teacher_Work.Models
             Class = new HashSet<Class>();
             Transactions = new HashSet<Transaction>();
             TeacherActivities = new HashSet<TeacherActivity>();
+            Users = new HashSet<User>();
         }
 
 
@@ -51,5 +52,6 @@ namespace Managing_Teacher_Work.Models
         public virtual Role Role { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
         public virtual ICollection<TeacherActivity> TeacherActivities { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }
