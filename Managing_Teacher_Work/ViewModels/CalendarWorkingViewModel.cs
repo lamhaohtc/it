@@ -15,7 +15,7 @@ namespace Managing_Teacher_Work.ViewModels
             GetWork();
             GetTypeCalendar();
         }
-        public CalendarWorkingViewModel(int calendarID, string name_CalendarWorking, string description, DateTime dateStart, DateTime dateEnd, string address,int teacherID,int workID,int typecalendarID, string workstate,string status)
+        public CalendarWorkingViewModel(int calendarID, string name_CalendarWorking, string description, DateTime dateStart, DateTime dateEnd, string address,int teacherID,int workID,int typecalendarID, int workstate,string status)
         {
             ID = calendarID;
             Name_CalendarWorking = name_CalendarWorking;
@@ -47,7 +47,7 @@ namespace Managing_Teacher_Work.ViewModels
         public int  WorkID { get; set; }
 
         public int TypeCalendarID { get; set; }
-        public string WorkState { get; set; }
+        public int WorkState { get; set; }
         public string Status { get;set; }
         public string Teacher_Name { get; set; }
         public string Work_Name { get; set; }

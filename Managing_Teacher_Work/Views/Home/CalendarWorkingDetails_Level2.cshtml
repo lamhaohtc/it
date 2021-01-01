@@ -16,7 +16,7 @@
 </script>
 <div>
     <div class="body">
-      
+
         <div class="row">
             <div class="col-sm-12 col-xs-12">
                 <div class="form-group">
@@ -24,8 +24,8 @@
                 </div>
             </div>
         </div>
-        <div><span><span class="fa fa-user"></span>&nbsp;Giáo viên phụ trách:&nbsp;@teacherbyID.Name_Teacher &nbsp;</span> - &nbsp;<span class="fa fa-list"></span>&nbsp;Tình trạng thực hiện:&nbsp;@if (Cal.WorkState == "DangThucHien") { <span>Đang thực hiện</span> } else { <span>Đã hoàn thành</span>} - &nbsp;<span class="fa fa-tasks"></span>&nbsp;Loại Tin Tức - Sự Kiện:&nbsp;@(typecalByID.TypeName??"") -  &nbsp;<span class="fa fa-tasks"></span>&nbsp;Loại công việc:&nbsp;@(workbyID.Name_Work??"")</div>
-       <br />
+        <div><span><span class="fa fa-user"></span>&nbsp;Giáo viên phụ trách:&nbsp;@teacherbyID.Name_Teacher &nbsp;</span> - &nbsp;<span class="fa fa-list"></span>&nbsp;Tình trạng thực hiện:&nbsp;@Managing_Teacher_Work.Helpers.EnumHelper.GetEnumDescription((Managing_Teacher_Work.Enums.ActivityStatus)Cal.WorkState) - &nbsp;<span class="fa fa-tasks"></span>&nbsp;Loại Tin Tức - Sự Kiện:&nbsp;@(typecalByID.TypeName??"") -  &nbsp;<span class="fa fa-tasks"></span>&nbsp;Loại công việc:&nbsp;@(workbyID.Name_Work??"")</div>
+        <br />
         <div class="row">
             &nbsp;&nbsp;&nbsp;&nbsp;Thời gian thực hiện:&nbsp;<i>Từ ngày @(Cal.DateStart.ToString("dd/MM/yyyy")??"") đến ngày @(Cal.DateEnd.ToString("dd/MM/yyyy")??"")</i> -&nbsp;Địa điểm triển khai:&nbsp;<i> @(Cal.Address??"")</i>
         </div>
@@ -40,11 +40,11 @@
             <p>Không có dữ liệu</p>
         }
 
-    <div class=row>
-        <h6><i><b>Văn bản đính kèm:</b></i><a href="@Cal.Files"><i class="fa fa-download"></i><i>Tải xuống</i></a></h6>
-    </div>
+        <div class=row>
+            <h6><i><b>Văn bản đính kèm:</b></i><a href="@Cal.Files"><i class="fa fa-download"></i><i>Tải xuống</i></a></h6>
+        </div>
         <div class="input" style="text-align: center;">
-           
+
             <button class="btn btn-search" style="background-color:orangered; color: white" onclick="cancel();">
                 <span></span><i class="fa fa-undo"></i>&nbsp;Quay lại
             </button>

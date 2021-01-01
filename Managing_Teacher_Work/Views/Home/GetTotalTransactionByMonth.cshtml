@@ -1,17 +1,19 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutIndex.cshtml";
+    var session = (Managing_Teacher_Work.Common.UserLogin)Session[Managing_Teacher_Work.Common.CommonConstants.USER_SESSION];
 }
 
 <!DOCTYPE HTML>
 <html>
 <head>
+    <meta charset="utf-8" />
     <script>
 window.onload = function () {
 
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 	title: {
-		text: "Thống Kê Chi Phí Theo Tháng"
+		text: "CHI TIẾT PHÍ THEO THÁNG"
 	},
 	toolTip: {
 		shared: true
@@ -20,17 +22,17 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		type: "line",
 		name: "Quỹ Từ Thiện",
 		showInLegend: true,
-		dataPoints: @Html.Raw(ViewBag.Charity)
+		dataPoints: @Html.Raw(ViewBag.DataPoints1)
 	}, {
 		type: "line",
 		name: "Quyên Góp",
 		showInLegend: true,
-		dataPoints: @Html.Raw(ViewBag.Donate)
+		dataPoints: @Html.Raw(ViewBag.DataPoints2)
 	}, {
 		type: "line",
 		name: "Công Đoàn Phí",
 		showInLegend: true,
-		dataPoints: @Html.Raw(ViewBag.Union)
+		dataPoints: @Html.Raw(ViewBag.DataPoints3)
 	}]
 });
 chart.render();
@@ -39,6 +41,33 @@ chart.render();
     </script>
 </head>
 <body>
+    <div class="row">
+        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+            <li role="presentation">
+                <a href="/Home/" id="home-tab">Tin Tức - Sự Kiện</a>
+            </li>
+
+            <li role="presentation" class="">
+                <a href="/Home-ManageTeacher/">Danh Sách Công Đoàn Viên</a>
+            </li>
+
+            <li role="presentation">
+                <a href="/Home/ActivityList">Hoạt Động Công Đoàn</a>
+            </li>
+            <li role="presentation">
+                <a href="/Home/TotalTransactionView">Thống Kê Chi Phí</a>
+            </li>
+            @if (session.GroupID == "ADMIN")
+            {
+                <li role="presentation">
+                    <a href="/Home/GetTotalTransactionByMonth" class="active">Thống Kê Chi Tiết Phí</a>
+                </li>
+            }
+            <li role="presentation">
+                <a href="/Extention/">Tiện ích</a>
+            </li>
+        </ul>
+    </div>
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>

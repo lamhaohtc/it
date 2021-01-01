@@ -128,6 +128,7 @@
         $("#bt_sua").show();
         $("#bt_them").hide();
         var id = el.parentNode.parentNode.cells[0].textContent;
+        debugger;
         $.ajax({
             url: '/Teacher/getList/?id=' + id,
             type: 'GET',
