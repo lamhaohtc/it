@@ -12,6 +12,7 @@ using System;
 using Managing_Teacher_Work.Enums;
 using Managing_Teacher_Work.Helpers;
 using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace Managing_Teacher_Work.Controllers
 {
@@ -274,40 +275,42 @@ namespace Managing_Teacher_Work.Controllers
 
         public async Task<ActionResult> GetTotalTransactionByMonth()
         {
-            var charityList = new List<TransactionDetailViewModel>();
-            var donateList = new List<TransactionDetailViewModel>();
-            var UnionList = new List<TransactionDetailViewModel>();
+            List<DataPoint> dataPoints1 = new List<DataPoint>();
+            List<DataPoint> dataPoints2 = new List<DataPoint>();
+            List<DataPoint> dataPoints3 = new List<DataPoint>();
 
             foreach (MonthEnum month in Enum.GetValues(typeof(MonthEnum)))
             {
                 var totalCharityAmount = await _transactionService.GetTotalTransactionByTypeAndMonth(month, TransactionType.CHARITY_FEE);
                 var totalDonateAmount = await _transactionService.GetTotalTransactionByTypeAndMonth(month, TransactionType.DONATE);
-                var totalUnionAmount = await _transactionService.GetTotalTransactionByTypeAndMonth(month, TransactionType.CHARITY_FEE);
+                var totalUnionAmount = await _transactionService.GetTotalTransactionByTypeAndMonth(month, TransactionType.UNION_FEE);
 
-                if(totalCharityAmount > 0)
+                if (totalCharityAmount > 0)
                 {
-                    charityList.Add(new TransactionDetailViewModel(EnumHelper.GetEnumDescription(month), totalCharityAmount));
+                    dataPoints1.Add(new DataPoint(EnumHelper.GetEnumDescription(month), totalCharityAmount));
                 }
 
-                if(totalDonateAmount > 0)
+                if (totalDonateAmount > 0)
                 {
-                    donateList.Add(new TransactionDetailViewModel(EnumHelper.GetEnumDescription(month), totalDonateAmount));
+                    dataPoints2.Add(new DataPoint(EnumHelper.GetEnumDescription(month), totalDonateAmount));
                 }
 
-                if(totalUnionAmount > 0)
+                if (totalUnionAmount > 0)
                 {
-                    UnionList.Add(new TransactionDetailViewModel(EnumHelper.GetEnumDescription(month), totalUnionAmount));
+                    dataPoints3.Add(new DataPoint(EnumHelper.GetEnumDescription(month), totalUnionAmount));
                 }
 
 
             }
 
-            ViewBag.Charity = JsonConvert.SerializeObject(charityList);
-            ViewBag.Donate = JsonConvert.SerializeObject(donateList);
-            ViewBag.Union = JsonConvert.SerializeObject(UnionList);
+            ViewBag.DataPoints1 = JsonConvert.SerializeObject(dataPoints1);
+            ViewBag.DataPoints2 = JsonConvert.SerializeObject(dataPoints2);
+            ViewBag.DataPoints3 = JsonConvert.SerializeObject(dataPoints3);
 
             return View();
+
         }
+
 
     }
 }
