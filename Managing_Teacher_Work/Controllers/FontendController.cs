@@ -14,10 +14,14 @@ namespace Managing_Teacher_Work.Controllers
         // GET: Fontend
         private readonly ITeacherService _teacherService;
         private readonly IScienseService _scienseService;
-        public FontendController(ITeacherService teacherService, IScienseService scienseService)
+        private readonly ITeacherActitvityService _teacherActitvityService;
+        public FontendController(ITeacherService teacherService, 
+            IScienseService scienseService,
+            ITeacherActitvityService teacherActitvityService)
         {
             _teacherService = teacherService;
             _scienseService = scienseService;
+            _teacherActitvityService = teacherActitvityService;
         }
         public ActionResult Index()
         {
@@ -27,8 +31,12 @@ namespace Managing_Teacher_Work.Controllers
         {
             var teacher = await _teacherService.GetTeacherByIdAysnc(id);
             var science = await _scienseService.GetScienseByIdAsync(teacher.SicenceID);
+            var activityListByTeacher = await _teacherActitvityService.GetActivityByTeacherId(id);
+
             ViewBag.teacher = teacher;
             ViewBag.science = science;
+            ViewBag.ActivityList = activityListByTeacher;
+            ViewBag.ActivityId = activityListByTeacher.Select(a => a.ActivityId).FirstOrDefault();
 
             return View();
         }

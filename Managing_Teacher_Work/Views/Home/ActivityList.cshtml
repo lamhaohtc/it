@@ -59,9 +59,9 @@
                                     <th>Tên Hoạt Động</th>
                                     <th>Loại Hoạt Động</th>
                                     <th>Ngày Bắt Đầu</th>
-                                    <th>Ngày Kết Thúc</th>
                                     <th>Địa Điểm</th>
                                     <th>Trạng Thái</th>
+                                    <th>Danh Sách</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,9 +75,9 @@
                                             <td><a href="/Home/ActivityDetail/@item.ID">@item.Title</a></td>
                                             <td>@Managing_Teacher_Work.Helpers.EnumHelper.GetEnumDescription((Managing_Teacher_Work.Enums.ActivityTypeEnum)item.ActivityType)</td>
                                             <td>@item.StartDate</td>
-                                            <td>@item.EndDate</td>
                                             <td>@item.Address</td>
                                             <td>@Managing_Teacher_Work.Helpers.EnumHelper.GetEnumDescription((Managing_Teacher_Work.Enums.ActivityStatus)item.ActivityStatus)</td>
+                                            <td><a href="/Home/GetTeacherListByActivity/@item.ID" class="btn btn-info btn-xs">Danh Sách Tham Gia</a></td>
                                         </tr>
                                     }
                                 }

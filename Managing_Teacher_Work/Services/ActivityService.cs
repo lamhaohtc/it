@@ -1,4 +1,5 @@
 ﻿using Managing_Teacher_Work.Enums;
+using Managing_Teacher_Work.Helpers;
 using Managing_Teacher_Work.Models;
 using System;
 using System.Collections.Generic;
@@ -85,7 +86,17 @@ namespace Managing_Teacher_Work.Services
 
         public async Task<List<Activity>> GetActivityListAsync()
         {
-            return await _dbContext.Activities.OrderByDescending(a => a.StartDate).ToListAsync();
+            var list =  await _dbContext.Activities.OrderByDescending(a => a.StartDate).ToListAsync();
+            if(list.Count > 0 && list != null)
+            {
+                foreach(var item in list)
+                {
+                    item.ActivityStatus = DateTimeHelper.SetActivityStatus(item.StartDate, item.EndDate);
+                    await UpdateActivityAsync(item);
+                }
+            }
+
+            return list;
         }
 
         public async Task<List<Activity>> GetActivityListByTeacherId(int teacherId)
