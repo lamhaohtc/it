@@ -2,14 +2,14 @@
 @{
     ViewBag.Title = "ListTeacher";
     Layout = "~/Views/Shared/_LayoutIndex.cshtml";
-    var listTeacher = (List<Teacher>)ViewBag.listTeacher;
-    var science = (Science)ViewBag.science;
+    var listTeacher = ViewBag.TeacherList;
+    var activity = ViewBag.Activity;
     var session = (Managing_Teacher_Work.Common.UserLogin)Session[Managing_Teacher_Work.Common.CommonConstants.USER_SESSION];
 
 }
 <script>
     function cancel() {
-            window.location = "/Home-ManageTeacher/";
+            window.location = "/Home/ActivityList";
     }
 </script>
 <div class="row">
@@ -46,7 +46,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Danh Sách Công Đoàn Viên thuộc bộ môn @science.Name</h2>
+                        <h2>@activity.Title - Ngày: @activity.StartDate.ToString("dd/MM/yyyy")</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -56,12 +56,7 @@
                                 <tr>
                                     <th>Tên Cán Bộ</th>
                                     <th>Giới tính </th>
-                                    <th>Địa chỉ</th>
-                                    <th>Ngày sinh</th>
                                     <th>Số điện thoại</th>
-                                    <th>Chức Vụ</th>
-                                    <th>Ngày Bắt Đầu</th>
-                                    <th>Ngày Kết Thúc</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,8 +64,8 @@
                                 {
                                     <tr>
 
-                                        <td><a href="/Profile-Teacher/@item.ID">@(item.Name_Teacher ?? "")</a></td>
-                                        @if (item.Gender == "Nam")
+                                        <td><a href="/Profile-Teacher/@item.Teacher.ID">@(item.Teacher.Name_Teacher ?? "")</a></td>
+                                        @if (item.Teacher.Gender == "Nam")
                                         {
                                             <td>Nam</td>
                                         }
@@ -78,21 +73,7 @@
                                         {
                                             <td>Nữ</td>
                                         }
-                                        <td>@(item.Address ?? "")</td>
-                                        @if (item.DateOfBirth != null)
-                                        {
-                                            <td>
-                                                @(item.DateOfBirth.ToString("dd/MM/yyyy"))
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td><p>Không có</p></td>
-                                        }
-                                        <td>@item.Phone</td>
-                                        <td>@item.Role.Name</td>
-                                        <td>@item.CreatedDate</td>
-                                        <td>@item.ModifiedDate</td>
+                                        <td>@item.Teacher.Phone</td>
                                     </tr>
                                 }
 
@@ -110,3 +91,4 @@
         </div>
     </div>
 </div>
+

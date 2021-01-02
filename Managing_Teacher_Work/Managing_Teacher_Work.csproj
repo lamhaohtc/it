@@ -6469,6 +6469,7 @@
     <Content Include="Views\TeacherActivity\Index.cshtml" />
     <Content Include="Views\Home\TotalTransactionView.cshtml" />
     <Content Include="Views\Home\GetTotalTransactionByMonth.cshtml" />
+    <Content Include="Views\Home\GetTeacherListByActivity.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

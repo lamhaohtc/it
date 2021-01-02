@@ -311,6 +311,17 @@ namespace Managing_Teacher_Work.Controllers
 
         }
 
+        public async Task<ActionResult> GetTeacherListByActivity(int id)
+        {
+            var teacherList = await _teacherActitvityService.GetListTeacherByActivityId(id);
+            ViewBag.TeacherList = teacherList;
+            var activity = await _activityService.GetActivityByIdAsync(id);
+            ViewBag.Activity = activity;
+
+            return View();
+
+        }
+
 
     }
 }
