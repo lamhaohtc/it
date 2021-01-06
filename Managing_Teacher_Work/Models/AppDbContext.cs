@@ -26,7 +26,7 @@ namespace Managing_Teacher_Work.Models
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<TeacherActivity> TeacherActivities { get; set; }
-
+        public virtual DbSet<Events> Events { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<AppDbContext>(null);
