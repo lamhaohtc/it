@@ -35,6 +35,9 @@
         <li role="presentation">
             <a href="/Extention/">Tiện ích</a>
         </li>
+        <li role="presentation">
+            <a href="/Home-ManageNote/">Ghi Chú Công Việc</a>
+        </li>
     </ul>
 </div>
 <div id="myTabContent" class="tab-content">
@@ -85,7 +88,7 @@
                                             <td><p>Không có</p></td>
                                         }
                                         <td>@item.Teacher_Name</td>
-                                        <td>@(item.WorkState == "DangThucHien" ? "Đang thực hiện" : "Hoàn thành")</td>
+                                        <td>@Managing_Teacher_Work.Helpers.EnumHelper.GetEnumDescription((Managing_Teacher_Work.Enums.ActivityStatus)item.WorkState)</td>
                                     </tr>
                                 }
 

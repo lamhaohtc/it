@@ -1,10 +1,13 @@
-﻿@{ 
+﻿@{
     var listScience = (List<Managing_Teacher_Work.Models.Science>)ViewBag.listScience;
+}
+@section ScriptFooter{
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
 }
 <script>
     function validate() {
-        if ($('#Name_Teacher').val() == "")
-        {
+        if ($('#Name_Teacher').val() == "") {
             alert('Bạn chưa chọn Tên Cán Bộ ! ');
             return false;
         }
@@ -87,7 +90,7 @@
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" name="Email" id="Email" class="form-control"/>
+                        <input type="text" name="Email" id="Email" class="form-control" />
                     </div>
                     <div class="form-group">
                         <label>Trạng thái<span style="color:red">(*)</span></label>
@@ -125,7 +128,7 @@
                     <button type="reset" class="btn btn-warning btn-sm"><i class="fa fa-map-marker"></i>&nbsp; Làm mới</button>
 
                     <input type="submit" name="submit" class="btn btn-success btn-sm" id="bt_sua" value="Cập Nhật" onclick="return validate();" />
-                    <input type="submit" name="submit" class="btn btn-success btn-sm" id="bt_them" value="Thêm" onclick="return validate();"/>
+                    <input type="submit" name="submit" class="btn btn-success btn-sm" id="bt_them" value="Thêm" onclick="return validate();" />
 
                 </div>
 

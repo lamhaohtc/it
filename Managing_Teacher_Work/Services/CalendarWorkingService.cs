@@ -1,4 +1,5 @@
-﻿using Managing_Teacher_Work.Models;
+﻿using Managing_Teacher_Work.Helpers;
+using Managing_Teacher_Work.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -49,7 +50,18 @@ namespace Managing_Teacher_Work.Services
 
         public async Task<List<CalendarWorking>> GetCalendarWorkingListAsyc()
         {
-            return await _dbContext.CalendarWorking.OrderByDescending(o => o.CreatedDate).ToListAsync();
+            var list = await _dbContext.CalendarWorking.OrderByDescending(o => o.DateStart).ToListAsync();
+            if(list.Count > 0 && list != null)
+            {
+                foreach(var item in list)
+                {
+                    item.WorkState = DateTimeHelper.SetActivityStatus(item.DateStart, item.DateEnd);
+                }
+
+                await _dbContext.SaveChangesAsync();
+            }
+
+            return list;
         }
     }
 }

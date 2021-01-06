@@ -27,8 +27,7 @@ namespace Managing_Teacher_Work.Models
 
         public int TypeCalendarID { get; set; }
 
-        [StringLength(255)]
-        public string WorkState { get; set; }
+        public int WorkState { get; set; }
 
         [StringLength(50)]
         public string Status { get; set; }
