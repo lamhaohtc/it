@@ -78,13 +78,16 @@ namespace Managing_Teacher_Work.Controllers
             }
 
         }
-        public ActionResult getList(int id)
+        public async Task<ActionResult> getList(int id)
         {
 
             JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
             var hs = _dbContext.Teacher.SingleOrDefault(x => x.ID == id);
-            var result = JsonConvert.SerializeObject(hs, Formatting.Indented, jss);
-            return this.Json(result, JsonRequestBehavior.AllowGet);
+            var result = await JsonConvert.SerializeObjectAsync(hs, Formatting.Indented, jss);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+
+            return jsonResult;
 
         }
 

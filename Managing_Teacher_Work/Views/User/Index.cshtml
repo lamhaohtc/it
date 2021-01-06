@@ -69,7 +69,6 @@
 
                                 <tr id="row_@item.ID">
                                     <td style="display:none">@item.ID </td>
-
                                     <td><a href="#!" onclick="Sua(this)" data-toggle="modal" data-target="#myModal">@(item.Name ?? "")</a></td>
                                     <td>@(item.UserName ?? "")</td>
                                     <td>@item.GroupID</td>
@@ -124,6 +123,7 @@
         $("#bt_sua").show();
         $("#bt_them").hide();
         var id = el.parentNode.parentNode.cells[0].textContent;
+        debugger;
         $.ajax({
             url: '/User/getList/?id=' + id,
             type: 'GET',

@@ -110,7 +110,10 @@ namespace Managing_Teacher_Work.Controllers
             var hs = await _teacherService.GetTeacherByIdAysnc(id);
             var result = JsonConvert.SerializeObject(hs, Formatting.Indented, jss);
 
-            return this.Json(result, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+
+            return jsonResult;
 
         }
 

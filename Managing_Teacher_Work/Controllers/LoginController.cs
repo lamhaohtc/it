@@ -21,14 +21,7 @@ namespace Managing_Teacher_Work.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if (Request.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return RedirectToAction("Login", "Login");
-            }
+            return View();
         }
 
         public async Task<ActionResult> Login(LoginModel model)
@@ -94,47 +87,6 @@ namespace Managing_Teacher_Work.Controllers
                         }
 
                 }
-                //    if (result == 1)
-                //    {
-                //        var user = await _userService.GetUserByUsernameAsync(model.UserName);
-                //        var userSession = new UserLogin();
-                //        userSession.UserName = user.UserName;
-                //        userSession.ID = user.ID;
-                //        userSession.Name = user.Name;
-                //        userSession.GroupID = user.GroupID;
-
-                //        var listCredentials = _userService.GetUserByUsernameAsync(model.UserName);
-                //        Session.Add(Managing_Teacher_Work.Common.CommonConstants.USER_SESSION, listCredentials);
-                //        Session.Add(Managing_Teacher_Work.Common.CommonConstants.USER_SESSION, userSession);
-                //        return RedirectToAction("Index", "Home");
-                //    }
-                //    else if (result == 0)
-                //    {
-                //        alertLogin = true;
-                //        ViewBag.alertLogin = alertLogin;
-                //        Redirect("Login/Index");
-                //        ViewBag.Mes = "Sai mật khẩu hoặc tài khoản. Vui lòng kiểm tra lại!";
-                //    }
-                //    else if (result == -1)
-                //    {
-                //        alertLogin = true;
-                //        ViewBag.alertLogin = alertLogin;
-                //        ViewBag.Mes = "Tài khoản đã bị khoá!";
-                //    }
-                //    else if (result == -2)
-                //    {
-                //        alertLogin = true;
-                //        ViewBag.alertLogin = alertLogin;
-                //        ViewBag.Mes = "Sai mật khẩu hoặc tài khoản. Vui lòng kiểm tra lại!";
-                //    }
-
-                //    else
-                //    {
-                //        alertLogin = true;
-                //        ViewBag.alertLogin = alertLogin;
-                //        ViewBag.Mes = "Đăng nhập không thành công";
-                //    }
-                //}
             }
 
             return View("Index");

@@ -18,6 +18,11 @@ namespace Managing_Teacher_Work.Services
         Task<decimal> TotalCharityFee();
         Task<decimal> TotalAllTransaction();
         Task<decimal> GetTotalTransactionByTypeAndMonth(MonthEnum month, TransactionType type);
+        Task<Transaction> AddTransactionAsync(Transaction model);
+        Task<Transaction> GetTransactionByIdAync(int id);
+        Task<bool> DeleteTransactionByIdAsync(int id);
+        Task UpdateTransactionAsync(Transaction model);
+        Transaction GetById(int id);
     }
     public class TransactionService : ITransactionService
     {
@@ -27,9 +32,41 @@ namespace Managing_Teacher_Work.Services
             _dbContext = dbContext;
         }
 
+        public async Task<Transaction> AddTransactionAsync(Transaction model)
+        {
+            _dbContext.Transactions.Add(model);
+            await _dbContext.SaveChangesAsync();
+
+            return model;
+        }
+
+        public async Task<bool> DeleteTransactionByIdAsync(int id)
+        {
+            var transaction = await GetTransactionByIdAync(id);
+            if(transaction != null)
+            {
+                _dbContext.Transactions.Remove(transaction);
+                await _dbContext.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public Transaction GetById(int id)
+        {
+            return _dbContext.Transactions.Find(id);
+        }
+
         public async Task<decimal> GetTotalTransactionByTypeAndMonth(MonthEnum month, TransactionType type)
         {
             return await _dbContext.Transactions.Where(t => t.CreatedDate.Value.Month == (int)month && t.TransactionType == (int)type).Select(t => t.Amout).SumAsync();
+        }
+
+        public async Task<Transaction> GetTransactionByIdAync(int id)
+        {
+            return await _dbContext.Transactions.FindAsync(id);
         }
 
         public async Task<List<Transaction>> GetTransactionListAsync()
@@ -55,6 +92,12 @@ namespace Managing_Teacher_Work.Services
         public async Task<decimal> TotalUnionFee()
         {
             return await _dbContext.Transactions.Where(t => t.TransactionType == (int)TransactionType.UNION_FEE && t.IsPaid).SumAsync(t => t.Amout);
+        }
+
+        public async Task UpdateTransactionAsync(Transaction model)
+        {
+            _dbContext.Entry(model).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }   

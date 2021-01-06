@@ -12,7 +12,7 @@
     }
 </style>
 
-@{ 
+@{
     var session = (Managing_Teacher_Work.Common.UserLogin)Session[Managing_Teacher_Work.Common.CommonConstants.USER_SESSION];
 
 }
@@ -22,7 +22,7 @@
         if ($('#hdnSession').val() == 'MEMBER') {
             alert('Bạn không có quyền truy cập vào mục này!');
             window.location = "/Home/";
-                    }
+        }
 
     });
 </script>
@@ -45,7 +45,7 @@
                 </div>
                 <div>
                     @if (TempData["AlertMessage"] != null)
-            {
+                    {
                         <div id="AlertBox" class="alert @TempData["AlertType"] hide" role="alert">
                             @TempData["AlertMessage"]
                         </div>
@@ -78,8 +78,8 @@
                                 <tr id="row_@item.ID">
                                     <td style="display:none">@item.ID </td>
                                     <td><a href="#!" onclick="Sua(this)" data-toggle="modal" data-target="#myModal">@(item.Name_CalendarWorking ?? "")</a></td>
-                                        <td>@item.Teacher_Name</td>
-                                  
+                                    <td>@item.Teacher_Name</td>
+
                                     @if (item.DateStart != null)
                                     {
                                         <td>@item.DateStart.ToString("dd/MM/yyyy")</td>
@@ -97,22 +97,15 @@
                                         <td></td>
                                     }
                                     <td>@(item.Address??"")</td>
-                                   @if (item.WorkState == "DangThucHien")
-                                   {
-                                    <td>Đang thực hiện</td>
-                                   }
-                                    @if (item.WorkState == "DaHoanThanh")
+                                    <td>@Managing_Teacher_Work.Helpers.EnumHelper.GetEnumDescription((Managing_Teacher_Work.Enums.ActivityStatus)item.WorkState)</td>
+                                    @if (session.GroupID == "ADMIN")
                                     {
-                                        <td>Đã hoàn thành</td>
-                                    }
-                                    @if(session.GroupID=="ADMIN")
-                                    {
-                                <td>
+                                        <td>
 
-                                    <a href="#" class="btn btn-info btn-xs" onclick="Sua(this)" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i> Sửa </a>
-                                    <a userId="@item.ID" title="Delete" class="link-delete btn btn-danger btn-xs" onclick="return confirmation(this)"><i class="fa fa-trash"></i> Xóa</a>
+                                            <a href="#" class="btn btn-info btn-xs" onclick="Sua(this)" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i> Sửa </a>
+                                            <a userId="@item.ID" title="Delete" class="link-delete btn btn-danger btn-xs" onclick="return confirmation(this)"><i class="fa fa-trash"></i> Xóa</a>
 
-                                </td>
+                                        </td>
                                     }
 
                                 </tr>
@@ -129,46 +122,47 @@
 @Html.Partial("_CalendarWorkingModal")
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-        function Them() {
-            SetNull();
-            $("#bt_sua").hide();
-            $("#bt_them").show();
-        };
-        function SetNull() {
-            $("#Name").val('');
-        };
-        function Sua(el) {
-            event.preventDefault();
-            $("#bt_sua").show();
-            $("#bt_them").hide();
-            var id = el.parentNode.parentNode.cells[0].textContent;
-            $.ajax({
-                url: '/CalendarWorking/getList/?id=' + id,
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    var json = JSON.parse(data);
-                    $("#ID").val(json.ID);
-                    $("#Name_CalendarWorking").val(json.Name_CalendarWorking);
-                    $("#Description").val(json.Description);
-                    $("#Description").val(json.Description);
-                    CKEDITOR.instances['Description'].setData(json.Description);
-                    $("#NBD").val(json.DateStart);
-                    $("#NKT").val(json.DateEnd);
-                    $("#DateEnd").val(json.DateEnd);
-                    $("#Address").val(json.Address);
-                    $("#TeacherID").val(json.TeacherID);
-                    $("#WorkID").val(json.WorkID);
-                    $("#TypeCalendarID").val(json.TypeCalendarID);
-                    $("#WorkState").val(json.WorkState);
-                    $("#Status").val(json.Status);
-                    $("#Files").val(json.Files);
-                },
-                error: function (err) {
-                    alert("Error: " + err.responseText);
-                }
-            });
-        }
+    function Them() {
+        SetNull();
+        $("#bt_sua").hide();
+        $("#bt_them").show();
+    };
+    function SetNull() {
+        $("#Name").val('');
+    };
+    function Sua(el) {
+        event.preventDefault();
+        $("#bt_sua").show();
+        $("#bt_them").hide();
+        var id = el.parentNode.parentNode.cells[0].textContent;
+        debugger;
+        $.ajax({
+            url: '/CalendarWorking/getList/?id=' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var json = JSON.parse(data);
+                $("#ID").val(json.ID);
+                $("#Name_CalendarWorking").val(json.Name_CalendarWorking);
+                $("#Description").val(json.Description);
+                $("#Description").val(json.Description);
+                CKEDITOR.instances['Description'].setData(json.Description);
+                $("#NBD").val(json.DateStart);
+                $("#NKT").val(json.DateEnd);
+                $("#DateEnd").val(json.DateEnd);
+                $("#Address").val(json.Address);
+                $("#TeacherID").val(json.TeacherID);
+                $("#WorkID").val(json.WorkID);
+                $("#TypeCalendarID").val(json.TypeCalendarID);
+                $("#WorkState").val(json.WorkState);
+                $("#Status").val(json.Status);
+                $("#Files").val(json.Files);
+            },
+            error: function (err) {
+                alert("Error: " + err.responseText);
+            }
+        });
+    }
 
     function confirmation(el) {
         event.preventDefault();

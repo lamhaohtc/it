@@ -168,7 +168,7 @@ namespace Managing_Teacher_Work.Controllers
 
         public JsonResult GetEvents()
         {
-            using (MyDatabaseEntities dc = new MyDatabaseEntities())
+            using (AppDbContext dc = new AppDbContext())
             {
                 var events = dc.Events.ToList();
                 return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -177,10 +177,10 @@ namespace Managing_Teacher_Work.Controllers
 
 
         [HttpPost]
-        public JsonResult SaveEvent(Events e)
+        public JsonResult SaveEvent(Models.Events e)
         {
             var status = false;
-            using (MyDatabaseEntities dc = new MyDatabaseEntities())
+            using (AppDbContext dc = new AppDbContext())
             {
                 if (e.EventID > 0)
                 {
@@ -212,7 +212,7 @@ namespace Managing_Teacher_Work.Controllers
         public JsonResult DeleteEvent(int eventID)
         {
             var status = false;
-            using (MyDatabaseEntities dc = new MyDatabaseEntities())
+            using (AppDbContext dc = new AppDbContext())
             {
                 var v = dc.Events.Where(a => a.EventID == eventID).FirstOrDefault();
                 if (v != null)

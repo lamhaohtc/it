@@ -29,7 +29,7 @@
     <link href="~/assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     @Scripts.Render("~/bundles/jquery")
-    @Styles.Render("~/styles/User")
+    @*@Styles.Render("~/styles/User")*@
 
     <!-- Custom Theme Style -->
     <link href="~/assets/production/css/custom.css" rel="stylesheet">
@@ -62,7 +62,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="/Home/" class="site_title"><img src="~/assets/production/images/ctu-logo.jpg" style="width: 50px"/> <span>CIT.HR</span></a>
+                        <a href="/Home/" class="site_title"><img src="~/assets/production/images/ctu-logo.jpg" style="width: 50px" /> <span>CIT.HR</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -74,15 +74,15 @@
                     }
                     else
                     {
-                    <div class="profile">
-                        <div class="profile_pic">
-                            <img src="~/assets/production/images/user.png" alt="..." class="img-circle profile_img">
+                        <div class="profile">
+                            <div class="profile_pic">
+                                <img src="~/assets/production/images/user.png" alt="..." class="img-circle profile_img">
+                            </div>
+                            <div class="profile_info">
+                                <span>Chào bạn,</span>
+                                <h2>@session.Name</h2>
+                            </div>
                         </div>
-                        <div class="profile_info">
-                            <span>Chào bạn,</span>
-                            <h2>@session.Name</h2>
-                        </div>
-                    </div>
                     }
 
                     <!-- /menu profile quick info -->
@@ -94,13 +94,13 @@
                         <!--Danh sach menu-->
                         @try
                         {
-                            { Html.RenderAction("LeftMenu", "Home");}
+                            { Html.RenderAction("LeftMenu", "Home"); }
                         }
                         catch (Exception ex)
                         {
 
                         }
-                      
+
 
 
                     </div>
@@ -131,117 +131,117 @@
             }
             else
             {
-            <div class="top_nav">
+                <div class="top_nav">
 
-                <div class="nav_menu">
-                    <nav class="" role="navigation">
-                        <div class="nav toggle">
-                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                        </div>
+                    <div class="nav_menu">
+                        <nav class="" role="navigation">
+                            <div class="nav toggle">
+                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                            </div>
 
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/assets/production/images/img.jpg" alt="">@session.Name
-                                    <span class=" fa fa-angle-down"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li>
-                                        <a href="javascript:;">  Thông tin cá nhân</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="badge bg-red pull-right">50%</span>
-                                            <span>Tuỳ chọn</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">Trợ giúp</a>
-                                    </li>
-                                    <li>
-                                        <a href="/User/Logout"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li role="presentation" class="dropdown">
-                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
-                                </a>
-                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="images/img.jpg" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="~/assets/production/images/img.jpg" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="images/img.jpg" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="images/img.jpg" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="text-center">
-                                            <a>
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <img src="~/assets/production/images/img.jpg" alt="">@session.Name
+                                        <span class=" fa fa-angle-down"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                        <li>
+                                            <a href="javascript:;">  Thông tin cá nhân</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="badge bg-red pull-right">50%</span>
+                                                <span>Tuỳ chọn</span>
                                             </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">Trợ giúp</a>
+                                        </li>
+                                        <li>
+                                            <a href="/User/Logout"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a>
+                                        </li>
+                                    </ul>
+                                </li>
 
-                        </ul>
-                    </nav>
+                                <li role="presentation" class="dropdown">
+                                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-envelope-o"></i>
+                                        <span class="badge bg-green">6</span>
+                                    </a>
+                                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                        <li>
+                                            <a>
+                                                <span class="image">
+                                                    <img src="images/img.jpg" alt="Profile Image" />
+                                                </span>
+                                                <span>
+                                                    <span>John Smith</span>
+                                                    <span class="time">3 mins ago</span>
+                                                </span>
+                                                <span class="message">
+                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>
+                                                <span class="image">
+                                                    <img src="~/assets/production/images/img.jpg" alt="Profile Image" />
+                                                </span>
+                                                <span>
+                                                    <span>John Smith</span>
+                                                    <span class="time">3 mins ago</span>
+                                                </span>
+                                                <span class="message">
+                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>
+                                                <span class="image">
+                                                    <img src="images/img.jpg" alt="Profile Image" />
+                                                </span>
+                                                <span>
+                                                    <span>John Smith</span>
+                                                    <span class="time">3 mins ago</span>
+                                                </span>
+                                                <span class="message">
+                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>
+                                                <span class="image">
+                                                    <img src="images/img.jpg" alt="Profile Image" />
+                                                </span>
+                                                <span>
+                                                    <span>John Smith</span>
+                                                    <span class="time">3 mins ago</span>
+                                                </span>
+                                                <span class="message">
+                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="text-center">
+                                                <a>
+                                                    <strong>See All Alerts</strong>
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+
                 </div>
-
-            </div>
             }
 
             <!-- /top navigation -->
@@ -270,27 +270,27 @@
                         </div>
                         <!--Thời tiết-->
                         @*<div class="container">
-                            <header class="header">
-                                <div class="search">
-                                    <input type="text" placeholder="Enter City Name" id="search-txt">
-                                    <a id="search-btn" href="#"><i class="fas fa-search"></i></a>
-                                </div>
-                            </header>
-                            <main id="main">
-                                <div class="city-icon">
-                                    <div class="city-icon-holder">
-                                        <div id="city-name"></div>
-                                        <img src="" alt="" id="icon">
+                                <header class="header">
+                                    <div class="search">
+                                        <input type="text" placeholder="Enter City Name" id="search-txt">
+                                        <a id="search-btn" href="#"><i class="fas fa-search"></i></a>
                                     </div>
-                                </div>
-                                <div class="temperature">
-                                    <div id="temp"></div>
-                                </div>
-                                <div class="humidity">
-                                    <div id="humidity-div"></div>
-                                </div>
-                            </main>
-                        </div>*@
+                                </header>
+                                <main id="main">
+                                    <div class="city-icon">
+                                        <div class="city-icon-holder">
+                                            <div id="city-name"></div>
+                                            <img src="" alt="" id="icon">
+                                        </div>
+                                    </div>
+                                    <div class="temperature">
+                                        <div id="temp"></div>
+                                    </div>
+                                    <div class="humidity">
+                                        <div id="humidity-div"></div>
+                                    </div>
+                                </main>
+                            </div>*@
                         <!--End-->
                     </div>
                 </div>
@@ -311,6 +311,7 @@
     </div>
     </div>
 
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
     <!-- jQuery -->
     <script src="~/assets/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -338,7 +339,7 @@
     <script src="~/assets/production/js/moment/moment.min.js"></script>
     <script src="~/assets/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/weather/0.0.2/weather.min.js"></script>
-   
+
     <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
     <!--Thời tiết -->
     <script>
@@ -405,105 +406,103 @@
     </script>
     <!-- FullCalendar -->
     @*<script>
-        $(window).load(function () {
-            var date = new Date(),
-                d = date.getDate(),
-                m = date.getMonth(),
-                y = date.getFullYear(),
-                started,
-                categoryClass;
+            $(window).load(function () {
+                var date = new Date(),
+                    d = date.getDate(),
+                    m = date.getMonth(),
+                    y = date.getFullYear(),
+                    started,
+                    categoryClass;
 
-            var calendar = $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                selectable: true,
-                selectHelper: true,
-                select: function (start, end, allDay) {
-                    $('#fc_create').click();
+                var calendar = $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    selectable: true,
+                    selectHelper: true,
+                    select: function (start, end, allDay) {
+                        $('#fc_create').click();
 
-                    started = start;
-                    ended = end;
+                        started = start;
+                        ended = end;
 
-                    $(".antosubmit").on("click", function () {
-                        var title = $("#title").val();
-                        if (end) {
-                            ended = end;
-                        }
+                        $(".antosubmit").on("click", function () {
+                            var title = $("#title").val();
+                            if (end) {
+                                ended = end;
+                            }
+
+                            categoryClass = $("#event_type").val();
+
+                            if (title) {
+                                calendar.fullCalendar('renderEvent', {
+                                    title: title,
+                                    start: started,
+                                    end: end,
+                                    allDay: allDay
+                                },
+                                    true // make the event "stick"
+                                );
+                            }
+
+                            $('#title').val('');
+
+                            calendar.fullCalendar('unselect');
+
+                            $('.antoclose').click();
+
+                            return false;
+                        });
+                    },
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $('#fc_edit').click();
+                        $('#title2').val(calEvent.title);
 
                         categoryClass = $("#event_type").val();
 
-                        if (title) {
-                            calendar.fullCalendar('renderEvent', {
-                                title: title,
-                                start: started,
-                                end: end,
-                                allDay: allDay
-                            },
-                                true // make the event "stick"
-                            );
-                        }
+                        $(".antosubmit2").on("click", function () {
+                            calEvent.title = $("#title2").val();
 
-                        $('#title').val('');
+                            calendar.fullCalendar('updateEvent', calEvent);
+                            $('.antoclose2').click();
+                        });
 
                         calendar.fullCalendar('unselect');
-
-                        $('.antoclose').click();
-
-                        return false;
-                    });
-                },
-                eventClick: function (calEvent, jsEvent, view) {
-                    $('#fc_edit').click();
-                    $('#title2').val(calEvent.title);
-
-                    categoryClass = $("#event_type").val();
-
-                    $(".antosubmit2").on("click", function () {
-                        calEvent.title = $("#title2").val();
-
-                        calendar.fullCalendar('updateEvent', calEvent);
-                        $('.antoclose2').click();
-                    });
-
-                    calendar.fullCalendar('unselect');
-                },
-                editable: true,
-                events: [{
-                    title: 'All Day Event',
-                    start: new Date(y, m, 1)
-                }, {
-                    title: 'Long Event',
-                    start: new Date(y, m, d - 5),
-                    end: new Date(y, m, d - 2)
-                }, {
-                    title: 'Meeting',
-                    start: new Date(y, m, d, 10, 30),
-                    allDay: false
-                }, {
-                    title: 'Lunch',
-                    start: new Date(y, m, d + 14, 12, 0),
-                    end: new Date(y, m, d, 14, 0),
-                    allDay: false
-                }, {
-                    title: 'Birthday Party',
-                    start: new Date(y, m, d + 1, 19, 0),
-                    end: new Date(y, m, d + 1, 22, 30),
-                    allDay: false
-                }, {
-                    title: 'Click for Google',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: 'http://google.com/'
-                }]
+                    },
+                    editable: true,
+                    events: [{
+                        title: 'All Day Event',
+                        start: new Date(y, m, 1)
+                    }, {
+                        title: 'Long Event',
+                        start: new Date(y, m, d - 5),
+                        end: new Date(y, m, d - 2)
+                    }, {
+                        title: 'Meeting',
+                        start: new Date(y, m, d, 10, 30),
+                        allDay: false
+                    }, {
+                        title: 'Lunch',
+                        start: new Date(y, m, d + 14, 12, 0),
+                        end: new Date(y, m, d, 14, 0),
+                        allDay: false
+                    }, {
+                        title: 'Birthday Party',
+                        start: new Date(y, m, d + 1, 19, 0),
+                        end: new Date(y, m, d + 1, 22, 30),
+                        allDay: false
+                    }, {
+                        title: 'Click for Google',
+                        start: new Date(y, m, 28),
+                        end: new Date(y, m, 29),
+                        url: 'http://google.com/'
+                    }]
+                });
             });
-        });
-    </script>*@
+        </script>*@
     <!-- /FullCalendar -->
-    
-
     <!-- Custom Theme Scripts -->
     <script src="~/assets/production/js/custom.js"></script>
 
@@ -543,7 +542,7 @@
 
             $('#datatable').dataTable({
                 "language": {
-                    "url" : "https://cdn.datatables.net/plug-ins/1.10.22/i18n/Vietnamese.json"
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.22/i18n/Vietnamese.json"
                 }
             });
             $('#datatable-keytable').DataTable({

@@ -38,13 +38,18 @@ namespace Managing_Teacher_Work.Controllers
 
             return View();
         }
+
+        [HttpGet]
         public ActionResult getList(int id)
         {
 
             JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
             var hs = _dbContext.User.SingleOrDefault(x => x.ID == id);
             var result = JsonConvert.SerializeObject(hs, Formatting.Indented, jss);
-            return this.Json(result, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+
+            return jsonResult;
         }
 
         public ActionResult Add(User model, string submit)
