@@ -9,33 +9,34 @@
 }
 <script>
     function cancel() {
-            window.location = "/Home/ActivityList";
+        window.location = "/Home/ActivityList";
     }
 </script>
 <div class="row">
     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-        <li role="presentation">
+        <li role="presentation" class="active">
             <a href="/Home/" id="home-tab">Tin Tức - Sự Kiện</a>
         </li>
-        <li role="presentation" class="active" id="bt">
-            <a href="/Home-ManageTeacher/">Danh Sách Công Đoàn Viên</a>
-        </li>
-
         <li role="presentation">
             <a href="/Home/ActivityList">Hoạt Động Công Đoàn</a>
-        </li>
-        <li role="presentation">
-            <a href="/Home/TotalTransactionView">Thống Kê Chi Phí</a>
         </li>
         @if (session.GroupID == "ADMIN")
         {
             <li role="presentation">
                 <a href="/Home/GetTotalTransactionByMonth">Thống Kê Chi Tiết Phí</a>
             </li>
+            <li role="presentation" class="">
+                <a href="/Home-ManageTeacher/">Danh Sách Công Đoàn Viên</a>
+            </li>
+            <li role="presentation">
+                <a href="/Home/TotalTransactionView">Thống Kê Chi Phí</a>
+            </li>
         }
-
         <li role="presentation">
             <a href="/Extention/">Tiện ích</a>
+        </li>
+        <li role="presentation">
+            <a href="/Home-ManageNote/">Ghi Chú Công Việc</a>
         </li>
     </ul>
 </div>
@@ -62,19 +63,25 @@
                             <tbody>
                                 @foreach (var item in listTeacher)
                                 {
-                                    <tr>
-
+                                <tr>
+                                    @if (session.GroupID == "ADMIN")
+                                    {
                                         <td><a href="/Profile-Teacher/@item.Teacher.ID">@(item.Teacher.Name_Teacher ?? "")</a></td>
-                                        @if (item.Teacher.Gender == "Nam")
-                                        {
-                                            <td>Nam</td>
-                                        }
-                                        else
-                                        {
-                                            <td>Nữ</td>
-                                        }
-                                        <td>@item.Teacher.Phone</td>
-                                    </tr>
+                                    }
+                                    else
+                                    {
+                                        <td>@item.Teacher.Name_Teacher</td>
+                                    }
+                                    @if (item.Teacher.Gender == "Nam")
+                                    {
+                                        <td>Nam</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Nữ</td>
+                                    }
+                                    <td>@item.Teacher.Phone</td>
+                                </tr>
                                 }
 
                             </tbody>

@@ -46,21 +46,19 @@ chart.render();
             <li role="presentation">
                 <a href="/Home/" id="home-tab">Tin Tức - Sự Kiện</a>
             </li>
-
-            <li role="presentation" class="">
-                <a href="/Home-ManageTeacher/">Danh Sách Công Đoàn Viên</a>
-            </li>
-
             <li role="presentation">
                 <a href="/Home/ActivityList">Hoạt Động Công Đoàn</a>
-            </li>
-            <li role="presentation">
-                <a href="/Home/TotalTransactionView">Thống Kê Chi Phí</a>
             </li>
             @if (session.GroupID == "ADMIN")
             {
                 <li role="presentation">
                     <a href="/Home/GetTotalTransactionByMonth" class="active">Thống Kê Chi Tiết Phí</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="/Home-ManageTeacher/">Danh Sách Công Đoàn Viên</a>
+                </li>
+                <li role="presentation">
+                    <a href="/Home/TotalTransactionView">Thống Kê Chi Phí</a>
                 </li>
             }
             <li role="presentation">
@@ -69,7 +67,6 @@ chart.render();
             <li role="presentation">
                 <a href="/Home-ManageNote/">Ghi Chú Công Việc</a>
             </li>
-
         </ul>
     </div>
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>

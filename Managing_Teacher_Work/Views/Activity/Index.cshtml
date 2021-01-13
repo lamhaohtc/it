@@ -133,7 +133,7 @@
         var id = el.parentNode.parentNode.cells[0].textContent;
         $.ajax({
             url: '/Activity/getList/?id=' + id,
-            type: 'GET',
+            type: 'POST',
             dataType: 'json',
             success: function (data) {
                 var json = JSON.parse(data);

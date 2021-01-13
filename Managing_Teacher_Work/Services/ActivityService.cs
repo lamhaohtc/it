@@ -23,6 +23,7 @@ namespace Managing_Teacher_Work.Services
         Task<int> CountSport();
         Task<int> CountCharity();
         Task<int> CountVolunteer();
+        Activity GetById(int id);
     }
     public class ActivityService : IActivityService
     {
@@ -102,6 +103,11 @@ namespace Managing_Teacher_Work.Services
         public async Task<List<Activity>> GetActivityListByTeacherId(int teacherId)
         {
             return await _dbContext.Activities.Where(a => a.TeacherActivities.FirstOrDefault().TeacherId == teacherId).ToListAsync();
+        }
+
+        public Activity GetById(int id)
+        {
+            return _dbContext.Activities.Find(id);
         }
 
         public async Task UpdateActivityAsync(Activity activity)

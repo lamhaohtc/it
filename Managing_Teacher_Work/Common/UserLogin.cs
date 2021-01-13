@@ -12,5 +12,6 @@ namespace Managing_Teacher_Work.Common
         public string UserName { set; get; }
         public string Name { set; get; }
         public string GroupID { set; get; }
+        public int TeacherId { get; set; }
     }
 }

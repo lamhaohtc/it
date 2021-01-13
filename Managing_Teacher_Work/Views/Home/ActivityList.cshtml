@@ -19,23 +19,21 @@
         <li role="presentation">
             <a href="/Home/" id="home-tab">Tin Tức - Sự Kiện</a>
         </li>
-        <li role="presentation" class="">
-            <a href="/Home-ManageTeacher/">Danh Sách Công Đoàn Viên</a>
-        </li>
-
         <li role="presentation" class="active">
             <a href="/Home/ActivityList">Hoạt Động Công Đoàn</a>
-        </li>
-        <li role="presentation">
-            <a href="/Home/TotalTransactionView">Thống Kê Chi Phí</a>
         </li>
         @if (session.GroupID == "ADMIN")
         {
             <li role="presentation">
                 <a href="/Home/GetTotalTransactionByMonth">Thống Kê Chi Tiết Phí</a>
             </li>
+            <li role="presentation" class="">
+                <a href="/Home-ManageTeacher/">Danh Sách Công Đoàn Viên</a>
+            </li>
+            <li role="presentation">
+                <a href="/Home/TotalTransactionView">Thống Kê Chi Phí</a>
+            </li>
         }
-
         <li role="presentation">
             <a href="/Extention/">Tiện ích</a>
         </li>

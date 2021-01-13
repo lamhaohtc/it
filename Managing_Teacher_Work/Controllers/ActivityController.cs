@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -78,16 +79,26 @@ namespace Managing_Teacher_Work.Controllers
 
         }
 
-        public async Task<ActionResult> getList(int id)
+        [HttpPost]
+        public JsonResult getList(int id)
         {
-            JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
-            var hs = await _activityService.GetActivityByIdAsync(id);
-            var result = JsonConvert.SerializeObject(hs, Formatting.Indented, jss);
+            try
+            {
+                var data = _activityService.GetById(id);
 
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            jsonResult.MaxJsonLength = int.MaxValue;
+                JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+                var result = JsonConvert.SerializeObject(data, Formatting.Indented, jss);
 
-            return jsonResult;
+                var jsonResult =  Json(result, JsonRequestBehavior.AllowGet);
+                jsonResult.MaxJsonLength = int.MaxValue;
+
+                return jsonResult;
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(ex.Message);
+            }
 
         }
 

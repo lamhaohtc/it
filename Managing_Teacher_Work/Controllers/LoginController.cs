@@ -41,6 +41,7 @@ namespace Managing_Teacher_Work.Controllers
                             userSession.ID = user.ID;
                             userSession.Name = user.Name;
                             userSession.GroupID = user.GroupID;
+                            userSession.TeacherId = user.TeacherId;
 
                             var listCredentials = _userService.GetUserByUsernameAsync(model.UserName);
                             Session.Add(Managing_Teacher_Work.Common.CommonConstants.USER_SESSION, listCredentials);
