@@ -79,26 +79,12 @@ namespace Managing_Teacher_Work.Controllers
 
         }
 
-        [HttpPost]
-        public JsonResult getList(int id)
+        public ActionResult getList(int id)
         {
-            try
-            {
-                var data = _activityService.GetById(id);
-
-                JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
-                var result = JsonConvert.SerializeObject(data, Formatting.Indented, jss);
-
-                var jsonResult =  Json(result, JsonRequestBehavior.AllowGet);
-                jsonResult.MaxJsonLength = int.MaxValue;
-
-                return jsonResult;
-            }
-            catch (Exception ex)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(ex.Message);
-            }
+            JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+            var hs = _activityService.GetById(id);
+            var result = JsonConvert.SerializeObject(hs, Formatting.Indented, jss);
+            return this.Json(result, JsonRequestBehavior.AllowGet);
 
         }
 

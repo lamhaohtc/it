@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Managing_Teacher_Work.Models
 {
-    public class TeacherActivity : BaseEntity
+    public class TeacherActivity
     {
         [Key, Column(Order = 0)]
         [ForeignKey("Activity")]

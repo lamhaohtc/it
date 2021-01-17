@@ -18,6 +18,7 @@ namespace Managing_Teacher_Work.Controllers
 {
     public class HomeController : BaseController
     {
+        private bool isAddNew;
         private readonly AppDbContext _dbContext;
         private readonly IScienseService _scienseService;
         private readonly ITeacherService _teacherService;
@@ -317,9 +318,49 @@ namespace Managing_Teacher_Work.Controllers
             ViewBag.TeacherList = teacherList;
             var activity = await _activityService.GetActivityByIdAsync(id);
             ViewBag.Activity = activity;
+            ViewBag.AllTeacherList = await _teacherService.GetAllTeacherListAsync();
 
             return View();
 
+        }
+
+        public async Task<ActionResult> Add(TeacherActivity model, string submit)
+        {
+            if (model != null)
+            {
+                if (submit == "Thêm")
+                {
+                    isAddNew = true;
+                    var entity = new TeacherActivity
+                    {
+                        ActivityId = model.ActivityId,
+                        TeacherId = model.TeacherId
+                    };
+
+                    var existedEnitty = await _teacherActitvityService.IsTeacherRegisterActivity(model.TeacherId, model.ActivityId);
+                    if (existedEnitty)
+                    {
+                        SetAlert("Cán bộ đã tồn tại", "error");
+                    }
+                    else
+                    {
+                        await _teacherActitvityService.AddTeacherActivityAsync(entity);
+                        SetAlert("Thêm thông tin thành công!", "success");
+                    }
+
+                    return RedirectToAction($"GetTeacherListByActivity/{model.ActivityId}");
+                }
+            }
+
+            return RedirectToAction($"GetTeacherListByActivity/{model.ActivityId}");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Delete(int id, int teacherId)
+        {
+            await _teacherActitvityService.DeleteByIdAsync(id, teacherId);
+
+            return RedirectToAction("Index");
         }
 
 

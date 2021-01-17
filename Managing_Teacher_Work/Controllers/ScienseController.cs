@@ -105,15 +105,26 @@ namespace Managing_Teacher_Work.Controllers
                     }
                    
                     model.Founding = model.Founding;
-                    model.CreatedDate = model.CreatedDate.GetValueOrDefault(System.DateTime.Now);   
+                    model.CreatedDate = model.CreatedDate.GetValueOrDefault(System.DateTime.Now);
 
-                    _dbContext.Science.Add(model);
-                    _dbContext.SaveChanges();
-                    model = null;
+                    var existed = _dbContext.Science.Where(x => x.Name.ToLower() == model.Name.ToLower()).FirstOrDefault();
+                    if (existed != null)
+                    {
+                        SetAlert("Tên bộ môn đã tồn tại", "error");
+                    }
+                    else
+                    {
+                        _dbContext.Science.Add(model);
+                        _dbContext.SaveChanges();
+                        model = null;
+
+                        SetAlert("Thêm thông tin thành công!", "success");
+                    }
+
                 }
-                SetAlert("Thêm thông tin thành công!", "success");
+
                 return RedirectToAction("Index");
-             
+
             }
             else if (submit == "Cập Nhật")
             {
@@ -163,10 +174,11 @@ namespace Managing_Teacher_Work.Controllers
 
         }
 
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            new ScienseDao().Delete(id);
+            await new ScienseDao().Delete(id);
             SetAlert("Xoá thành công!", "success");
+
             return RedirectToAction("Index");
         }
       

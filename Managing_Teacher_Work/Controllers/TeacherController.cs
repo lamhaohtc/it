@@ -21,7 +21,7 @@ namespace Managing_Teacher_Work.Controllers
         private readonly ITeacherService _teacherService;
         private readonly IScienseService _scienceService;
         public TeacherController(
-            AppDbContext dbContext, 
+            AppDbContext dbContext,
             ITeacherService teacherService,
             IScienseService scienseService)
         {
@@ -44,7 +44,7 @@ namespace Managing_Teacher_Work.Controllers
                     Gender = t.Gender,
                     Name_Teacher = t.Name_Teacher,
                     Phone = t.Phone,
-                    Email = t.Email, 
+                    Email = t.Email,
                     RoleId = t.RoleId,
                     Role = t.Role
                 });
@@ -78,16 +78,15 @@ namespace Managing_Teacher_Work.Controllers
             }
 
         }
-        public async Task<ActionResult> getList(int id)
+
+        [HttpGet]
+        public JsonResult getList(int id)
         {
 
             JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
             var hs = _dbContext.Teacher.SingleOrDefault(x => x.ID == id);
-            var result = await JsonConvert.SerializeObjectAsync(hs, Formatting.Indented, jss);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            jsonResult.MaxJsonLength = int.MaxValue;
-
-            return jsonResult;
+            var result = JsonConvert.SerializeObject(hs, Formatting.Indented, jss);
+            return this.Json(result, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -114,12 +113,21 @@ namespace Managing_Teacher_Work.Controllers
                     model.RoleId = model.RoleId;
                     model.Email = model.Email;
 
-                    _dbContext.Teacher.Add(model);
-                    _dbContext.SaveChanges();
-                    model = null;
+                    var existed = _dbContext.Teacher.Where(x => x.Name_Teacher.ToLower() == model.Name_Teacher.ToLower()).FirstOrDefault();
+                    if (existed != null)
+                    {
+                        SetAlert("Cán bộ đã tồn tại !", "error");
+                    }
+                    else
+                    {
+                        _dbContext.Teacher.Add(model);
+                        _dbContext.SaveChanges();
+                        model = null;
+                        SetAlert("Thêm thông tin thành công!", "success");
+                    }
+
                 }
                 ViewBag.checkThemMoi = isThemMoi;
-                SetAlert("Thêm thông tin thành công!", "success");
                 return RedirectToAction("Index");
             }
             else if (submit == "Cập Nhật")

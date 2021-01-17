@@ -14,10 +14,10 @@
 </script>
 <div class="row">
     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-        <li role="presentation" class="active">
+        <li role="presentation">
             <a href="/Home/" id="home-tab">Tin Tức - Sự Kiện</a>
         </li>
-        <li role="presentation">
+        <li role="presentation" class="active">
             <a href="/Home/ActivityList">Hoạt Động Công Đoàn</a>
         </li>
         @if (session.GroupID == "ADMIN")
@@ -51,37 +51,62 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-
+                        <div style="text-align:right">
+                            @if (session.GroupID == "ADMIN")
+                            {
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" onclick="Them()"><i class="fa fa-plus-square"></i>&nbsp;Thêm mới</button>
+                            }
+                        </div>
+                        <div>
+                            @if (TempData["AlertMessage"] != null)
+                            {
+                                <div id="AlertBox" class="alert @TempData["AlertType"] hide" role="alert">
+                                    @TempData["AlertMessage"]
+                                </div>
+                            }
+                        </div>
                         <table id="datatable-buttons" class="table table-striped jambo_table bulk_action">
                             <thead>
                                 <tr>
                                     <th>Tên Cán Bộ</th>
                                     <th>Giới tính </th>
                                     <th>Số điện thoại</th>
+                                    @if (session.GroupID == "ADMIN")
+                                    {
+                                        <th>Thao Tác</th>
+                                    }
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in listTeacher)
                                 {
-                                <tr>
-                                    @if (session.GroupID == "ADMIN")
-                                    {
-                                        <td><a href="/Profile-Teacher/@item.Teacher.ID">@(item.Teacher.Name_Teacher ?? "")</a></td>
-                                    }
-                                    else
-                                    {
-                                        <td>@item.Teacher.Name_Teacher</td>
-                                    }
-                                    @if (item.Teacher.Gender == "Nam")
-                                    {
-                                        <td>Nam</td>
-                                    }
-                                    else
-                                    {
-                                        <td>Nữ</td>
-                                    }
-                                    <td>@item.Teacher.Phone</td>
-                                </tr>
+                                    <tr id="row_@activity.ID">
+                                        <td style="display: none;">@activity.ID</td>
+                                        <td style="display: none;">@item.Teacher.ID</td>
+                                        @if (session.GroupID == "ADMIN")
+                                        {
+                                            <td><a href="/Profile-Teacher/@item.Teacher.ID">@(item.Teacher.Name_Teacher ?? "")</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@item.Teacher.Name_Teacher</td>
+                                        }
+                                        @if (item.Teacher.Gender == "Nam")
+                                        {
+                                            <td>Nam</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Nữ</td>
+                                        }
+                                        <td>@item.Teacher.Phone</td>
+                                        @if (session.GroupID == "ADMIN")
+                                        {
+                                            <td>
+                                                <a title="Delete" class="link-delete btn btn-danger btn-xs" onclick="return confirmation(this)"><i class="fa fa-trash"></i> Xóa</a>
+                                            </td>
+                                        }
+                                    </tr>
                                 }
 
                             </tbody>
@@ -99,3 +124,73 @@
     </div>
 </div>
 
+@Html.Partial("_teacherActivityModel")
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    function Them() {
+        SetNull();
+        $("#bt_sua").hide();
+        $("#bt_them").show();
+    };
+    function SetNull() {
+        $("#Name").val('');
+    };
+
+    function Sua(el) {
+        event.preventDefault();
+        $("#bt_sua").show();
+        $("#bt_them").hide();
+        var id = el.parentNode.parentNode.cells[0].textContent;
+        var teacherId = el.parentNode.parentNode.cells[1].textContent;
+        debugger;
+        $.ajax({
+            url: '/Transaction/getList/?id=' + id + '&teacherId = ' + teacherId,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var json = JSON.parse(data);
+                $("#ID").val(json.ID);
+                $("#teacherId").val(json.TeacherId);
+                $("#Amout").val(json.Amout);
+                $("#TransactionType").val(json.TransactionType);
+
+
+            },
+            error: function (err) {
+                alert("Error: " + err.responseText);
+            }
+        });
+    }
+
+    function confirmation(el) {
+        event.preventDefault();
+        var id = el.parentNode.parentNode.cells[0].textContent;
+        var teacherId = el.parentNode.parentNode.cells[1].textContent;
+        debugger;
+        swal({
+            title: "Bạn Có Chắc Chắn Muốn Xóa?",
+            text: "Sau Khi Xóa, Bạn Sẽ Không Thể Khôi Phục Dữ Liệu Này",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '/home/delete?id=' + id + '&teacherId=' + teacherId,
+                        type: 'POST'
+                    }),
+                        swal({
+                            title: "Thông Báo", text: "Xóa Thành Công !", type:
+                                "success"
+                        }).then(function () {
+                            window.location.reload();
+
+                        }
+                        );
+                } else {
+                    swal("Bạn Vừa Hủy Thao Tác !");
+                }
+            });
+    }
+</script>

@@ -92,7 +92,7 @@
                                     @if (session.GroupID == "ADMIN")
                                     {
                                 <td>
-                                    <a href="#" class="btn btn-info btn-xs" onclick="Sua(this)" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i> Sửa </a>
+                                    @*<a href="#" class="btn btn-info btn-xs" onclick="Sua(this)" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i> Sửa </a>*@
                                     <a userId="@item.ID" title="Delete" class="link-delete btn btn-danger btn-xs" onclick="return confirmation(this)"><i class="fa fa-trash"></i> Xóa</a>
 
                                 </td>
@@ -140,7 +140,6 @@
                 $("#Phone").val(json.Phone);
                 $("#Address").val(json.Address);
                 $("#DateOfBirth").val(json.DateOfBirth);
-                $("#NS").val(json.DateOfBirth);
                 $("#Avatar").val(json.Avatar);
                 $("#Gender").val(json.Gender);
                 $("#Status").val(json.Status);

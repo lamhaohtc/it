@@ -6321,6 +6321,10 @@
     <Compile Include="Migrations\202101030642195_UpdateCalendarWorkingStateToInt.designer.cs">
       <DependentUpon>202101030642195_UpdateCalendarWorkingStateToInt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101131308262_UpdateTeaherActivity.cs" />
+    <Compile Include="Migrations\202101131308262_UpdateTeaherActivity.designer.cs">
+      <DependentUpon>202101131308262_UpdateTeaherActivity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -6470,6 +6474,7 @@
     <Content Include="Views\Home\GetTotalTransactionByMonth.cshtml" />
     <Content Include="Views\Home\GetTeacherListByActivity.cshtml" />
     <Content Include="Views\Transaction\_transactionModel.cshtml" />
+    <Content Include="Views\Home\_teacherActivityModel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -6573,6 +6578,9 @@
     <EmbeddedResource Include="Migrations\202101030642195_UpdateCalendarWorkingStateToInt.resx">
       <DependentUpon>202101030642195_UpdateCalendarWorkingStateToInt.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101131308262_UpdateTeaherActivity.resx">
+      <DependentUpon>202101131308262_UpdateTeaherActivity.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -6590,7 +6598,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52482</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44302/</IISUrl>
+          <IISUrl>https://localhost:44301/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

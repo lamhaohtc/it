@@ -1,0 +1,95 @@
+﻿@{
+    var teacherList = ViewBag.AllTeacherList;
+    var activity = ViewBag.Activity;
+}
+@section ScriptFooter{
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+
+}
+<script>
+    function validate() {
+        if ($('#teacherId').val() == "none") {
+            alert('Bạn chưa chọn Tên Cán Bộ ! ');
+            return false;
+        }
+        if ($('#TransactionType').val() == "none") {
+            alert('Bạn chon loai chi phi ');
+            return false;
+        }
+        if ($('#DateOfBirth').val() == "") {
+            alert('Chưa chọn ngày sinh ! Mời chọn');
+            return false;
+        }
+        if ($('#Avatar').val() == "") {
+            alert('Bạn chưa chọn ảnh đại diện!');
+            return false;
+        }
+        if ($('#Status').val() == "Khongchon") {
+            alert('Bạn chưa chọn trạng thái!');
+            return false;
+        }
+        if ($('#RoleId').val() == "Khongchon") {
+            alert('Bạn chưa chọn chức vụ!');
+            return false;
+        }
+        if ($('#Amout').val() < 50000) {
+            alert('Số Tiền Ít Nhất Là 50000 VNĐ');
+            return false;
+        }
+        if ($('#CreatedDate').val() == "") {
+            alert('Chưa chọn ngày');
+            return false;
+        }
+        return true;
+    }
+</script>
+<form action="/Home/Add" method="post" class="needs-validation">
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <label id="lblresult"></label>
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Quản Lý Hoạt Động</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type="hidden" name="ActivityId" id="ActivityId" value="@activity.ID">
+                    <div class="form-group">
+                        <label>Tên Cán Bộ<span style="color:red">(*)</span></label>
+                        <select name="TeacherId" id="teacherId" class="form-control">
+                            <option value="none">Chọn..</option>
+                            @{
+                                if (teacherList != null)
+                                {
+                                    foreach (var item in teacherList)
+                                    {
+                                        <option value="@item.ID">@item.Name_Teacher</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">&nbsp; Đóng</button>
+                    <button type="reset" class="btn btn-warning btn-sm">&nbsp; Làm mới</button>
+
+                    <input type="submit" name="submit" class="btn btn-success btn-sm" id="bt_sua" value="Cập Nhật" onclick="return validate();" />
+                    <input type="submit" name="submit" class="btn btn-success btn-sm" id="bt_them" value="Thêm" onclick="return validate();" />
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+
+

@@ -70,13 +70,21 @@ namespace Managing_Teacher_Work.Controllers
                     model.Email = model.Email.ToString().Trim();
                     model.TeacherId = model.TeacherId;
                     model.CreatedDate = model.CreatedDate.GetValueOrDefault(System.DateTime.Now);
-                  
 
-                    _dbContext.User.Add(model);
-                    _dbContext.SaveChanges();
-                    model = null;
+                    var existed = _dbContext.User.Where(x => x.TeacherId == model.TeacherId).FirstOrDefault();
+                    if(existed != null)
+                    {
+                        SetAlert("Tài khoản đã tồn tại!", "error");
+                    }
+                    else
+                    {
+                        _dbContext.User.Add(model);
+                        _dbContext.SaveChanges();
+                        model = null;
+                        SetAlert("Thêm thông tin thành công!", "success");
+                    }        
+
                 }
-                SetAlert("Thêm thông tin thành công!", "success");
                 return RedirectToAction("Index");
             }
             else if (submit == "Cập Nhật")
